@@ -174,21 +174,34 @@ export default function AnimatedLanding() {
         </div>
       </section>
 
-      {/* 5. THE PROMISE / TECH SECTION (Dark Contrast Block) */}
+      {/* 5. THE PROMISE / QUALITY ASSURANCE (Dark Contrast Block) */}
       <section className="py-24 md:py-32 section-dark relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_50%)]" />
-        <div className="container-tight relative z-10 flex flex-col md:flex-row items-center justify-between gap-16">
-          <div className="max-w-lg">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Hardware-secured entries. Zero trust needed.</h2>
-            <p className="text-zinc-400 text-lg mb-8 font-medium">Our proprietary cryptographic authentication locks your front door until the exact second your verified Pro arrives. Every visit timestamped digitally.</p>
-            <ul className="space-y-4 font-bold text-zinc-300">
-              <li className="flex items-center gap-3"><div className="h-2 w-2 bg-accent rounded-full" /> End-to-end NFC verification</li>
-              <li className="flex items-center gap-3"><div className="h-2 w-2 bg-accent rounded-full" /> Fully audited remote access logs</li>
-              <li className="flex items-center gap-3"><div className="h-2 w-2 bg-accent rounded-full" /> Auto-terminating entry tokens</li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/2 aspect-square max-w-md relative bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl">
-            <img src="/images/smart_lock.png" className="w-full h-full object-cover opacity-80 mix-blend-luminosity" alt="" />
+        <div className="container-tight relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-accent font-extrabold text-sm uppercase tracking-widest mb-4 block">The AZAP Promise</span>
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">Standardized excellence. Every single visit.</h2>
+              <p className="text-zinc-400 text-lg mb-10 font-medium leading-relaxed">We don't just match you with anyone. We operate a hyper-vetted network of professionals who undergo rigorous skill-testing and comprehensive verification before entering our ecosystem.</p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <h4 className="text-lg font-bold text-white mb-2">Skill Audits</h4>
+                  <p className="text-sm text-zinc-400">Continuous real-world quality assessments keep service quality impeccable.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <h4 className="text-lg font-bold text-white mb-2">Zero Hassle</h4>
+                  <p className="text-sm text-zinc-400">We handle all substitution logic if your primary provider is unavailable.</p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full aspect-square md:aspect-[4/5] relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
+              <img src="/images/provider_hero.png" className="w-full h-full object-cover" alt="Elite Provider" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                <div className="text-white font-extrabold text-lg mb-1">Top 2% Selection</div>
+                <div className="text-zinc-300 text-sm">Only the most qualified professionals make it onto our platform.</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
