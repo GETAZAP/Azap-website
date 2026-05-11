@@ -161,14 +161,14 @@ export default function AnimatedLanding() {
                 <div className="h-10 w-10 rounded-full bg-ink text-white flex items-center justify-center font-black shrink-0">3</div>
                 <div>
                   <h4 className="text-xl font-bold mb-2">Pay and relax</h4>
-                  <p className="text-zinc-500 font-medium leading-relaxed">Secure flat pricing transparently calculated upfront. No hidden fees. Your Pro checks in via secure NFC.</p>
+                  <p className="text-zinc-500 font-medium leading-relaxed">Secure flat pricing transparently calculated upfront. No hidden fees. Your Pro checks in via secure PIN code.</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="bg-zinc-50 rounded-[3rem] p-8 border border-zinc-200/60">
             <div className="aspect-[4/5] bg-ink rounded-2xl overflow-hidden shadow-2xl relative">
-              <img src="/images/nfc_localized.png" className="w-full h-full object-cover opacity-80 grayscale" alt="Mobile interaction" />
+              <img src="/images/nfc_localized.png" className="w-full h-full object-cover opacity-80" alt="Mobile interaction" />
             </div>
           </div>
         </div>
