@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="About Us">
+    <PageHero 
+        client:load
+        title="Redefining Home Management." 
+        subtitle="AZAP was founded to bring professional, high-fidelity home services to modern families in Nigeria."
+        image="/images/about_hero.png"
+    />
+    
+    <section class="py-32 px-6 text-center">
+        <div class="container-tight max-w-3xl">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Our Mission</h2>
+            <p class="text-xl text-zinc-500 font-medium leading-relaxed mb-20 max-w-2xl mx-auto italic">"To empower homeowners with time and peace of mind through a network of elite, verified professionals."</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Integrity</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">We believe in radical transparency and absolute reliability. Every provider is vetted, and every service is verified.</p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Innovation</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">We use technology like NFC and smart scheduling to solve real-world trust and efficiency problems in the service industry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="Careers">
+    <PageHero 
+        client:load
+        title="Join the core team." 
+        subtitle="Help us build the ultimate operational operating system for the modern African household."
+        image="/images/about_hero.png"
+    />
+    
+    <section class="py-32 px-6">
+        <div class="container-tight !px-0">
+            <div class="mb-20">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Open Roles</h2>
+                <p class="text-zinc-500 text-lg font-medium">View active engineering, operational, and corporate vacancies.</p>
+            </div>
+
+            {/* EMPTY STATE / NO ACTIVE ROLES */}
+            <div class="border-2 border-dashed border-zinc-200 rounded-3xl p-16 text-center flex flex-col items-center justify-center bg-zinc-50/50">
+                <div class="h-16 w-16 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                </div>
+                <h3 class="text-xl font-extrabold text-ink mb-2">No active openings.</h3>
+                <p class="text-zinc-500 font-medium max-w-md leading-relaxed mb-8">We are not currently hiring for internal corporate positions. Follow our social channels to be notified when fresh nodes open up.</p>
+                <div class="flex gap-3">
+                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Design</span>
+                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Engineering</span>
+                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Ops</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-zinc-50 border-t border-zinc-200/50 px-6 text-center">
+        <div class="container-tight max-w-2xl">
+            <h3 class="text-2xl font-extrabold tracking-tight mb-4">Speculative Applications</h3>
+            <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">If you're exceptional and don't see a role, send a concise outline of how you'd impact AZAP to our talent repository.</p>
+            <a href="mailto:careers@azap.io" class="text-accent font-extrabold text-sm uppercase tracking-widest hover:underline">careers@azap.io</a>
+        </div>
+    </section>
+</Layout>

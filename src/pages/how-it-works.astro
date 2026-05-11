@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero";
+---
+
+<Layout title="How it Works">
+    <PageHero
+        client:load
+        title="Simple. Secure. Native."
+        subtitle="Managing your home has never been this effortless. Here's how we ensure a premium experience every time."
+        image="/images/how_it_works.png"
+    />
+
+    <section class="py-32 px-6">
+        <div class="container-tight !px-0">
+            <div class="space-y-24">
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <div
+                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
+                    >
+                        01
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
+                            Conversational Booking
+                        </h2>
+                        <p
+                            class="text-lg text-zinc-500 font-medium leading-relaxed mb-6"
+                        >
+                            Start by messaging our WhatsApp bot. Select your
+                            service, set your location, and choose a verified
+                            provider in under 60 seconds. No app download
+                            required.
+                        </p>
+                        <div
+                            class="p-4 bg-white border border-zinc-200/60 rounded-2xl inline-flex items-center gap-3 shadow-sm"
+                        >
+                            <div
+                                class="h-9 w-9 bg-green-500 rounded-xl flex items-center justify-center text-white"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    ><path
+                                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9L21 4.5Z"
+                                    ></path></svg
+                                >
+                            </div>
+                            <span class="text-ink font-bold text-sm"
+                                >Verified Bot Flow</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <div
+                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
+                    >
+                        02
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
+                            The Notification Stack
+                        </h2>
+                        <p
+                            class="text-lg text-zinc-500 font-medium leading-relaxed mb-6"
+                        >
+                            From confirmation to completion, every milestone is
+                            sent directly to your WhatsApp. Zero dependency on
+                            data-heavy push notifications.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            {
+                                [
+                                    "CONFIRMED",
+                                    "EN ROUTE",
+                                    "ARRIVED",
+                                    "COMPLETED",
+                                ].map((status) => (
+                                    <div class="px-4 py-2 bg-ink text-white text-[10px] font-extrabold uppercase tracking-widest rounded-full">
+                                        {status}
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <div
+                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
+                    >
+                        03
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
+                            Pin Check-in
+                        </h2>
+                        <p
+                            class="text-lg text-zinc-500 font-medium leading-relaxed"
+                        >
+                            Your artisan provides a 4-digit PINCode to confirm
+                            their arrival. This creates an irrefutable,
+                            timestamped attendance record for total security.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 section-dark text-center">
+        <div class="container-tight max-w-3xl">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
+                Built for the real world.
+            </h2>
+            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">
+                Works on any phone. Works on slow data. Designed for the
+                Nigerian context.
+            </p>
+            <a
+                href="/contact"
+                class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 inline-flex px-8 py-4 text-base shadow-md"
+                >Register Now</a
+            >
+        </div>
+    </section>
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="Verification">
+    <PageHero 
+        client:load
+        title="Identity, Verified." 
+        subtitle="Our 5-stage sequential verification pipeline is designed to eliminate risk and build irrefutable trust."
+        image="/images/nfc_localized.png"
+    />
+    
+    <section class="py-32 px-6">
+        <div class="container-tight !px-0 max-w-3xl space-y-16">
+            {[
+              { n: '01', t: 'Phone OTP', d: 'Confirms a real Nigerian phone number via SMS OTP. This is the baseline requirement for creating an account.' },
+              { n: '02', t: 'NIN Verification', d: "We verify the provider's 11-digit NIN against NIMC databases to confirm their full name, date of birth, and linked photo." },
+              { n: '03', t: 'BVN + Bank Match', d: 'Cross-checking BVN and bank account names ensures that the person receiving payment is the same person verified by the NIN.' },
+              { n: '04', t: 'Guarantor System', d: 'Every provider must submit two verified guarantors who confirm their character and address via WhatsApp.' },
+              { n: '05', t: 'Face Liveness Check', d: 'A real-time selfie check prevents identity fraud and ensures the person at your door is the one on the profile.' },
+            ].map(step => (
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="text-6xl font-extrabold text-zinc-200 shrink-0 leading-none">{step.n}</div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold mb-2 tracking-tight">{step.t}</h3>
+                        <p class="text-zinc-500 text-base leading-relaxed font-medium">{step.d}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <section class="py-32 px-6 section-dark text-center">
+        <div class="container-tight max-w-3xl">
+            <h2 class="text-4xl font-extrabold tracking-tight mb-6">The Verified Badge.</h2>
+            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">Providers who complete all 5 stages receive the AZAP Verified badge, granting them full platform access and B2B eligibility.</p>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full text-white font-extrabold text-sm uppercase tracking-widest">
+                <span>AZAP VERIFIED</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+        </div>
+    </section>
+</Layout>

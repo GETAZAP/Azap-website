@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="Cities">
+    <PageHero 
+        client:load
+        title="Expanding across Nigeria." 
+        subtitle="We are strategically launching in the most vibrant cities, starting with the heart of the east."
+        image="/images/about_hero.png"
+    />
+    
+    <section class="py-32 px-6">
+        <div class="container-tight !px-0">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-enterprise p-10 relative">
+                    <div class="absolute top-6 right-6">
+                        <span class="flex h-2.5 w-2.5 rounded-full bg-accent animate-pulse" />
+                    </div>
+                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Enugu</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Currently onboarding providers in Independence Layout, GRA, and Trans Ekulu.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-accent">Active Beta</span>
+                </div>
+
+                <div class="card-enterprise p-10 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Lagos</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Waitlist open for Victoria Island, Ikoyi, and Lekki Phase 1.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-zinc-400">Coming Q3 2026</span>
+                </div>
+
+                <div class="card-enterprise p-10 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Abuja</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Waitlist open for Maitama, Asokoro, and Wuse II.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-zinc-400">Coming Q4 2026</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

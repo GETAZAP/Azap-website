@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="B2B Solutions">
+    <PageHero 
+        client:load
+        title="Scale your operations." 
+        subtitle="Professional household management for short-let operators, corporate offices, and Airbnb hosts."
+        image="/images/smart_lock.png"
+    />
+    
+    <section class="py-32 px-6">
+        <div class="container-tight !px-0">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-32">
+                <div>
+                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">Short-let Turnover.</h2>
+                    <p class="text-zinc-500 text-lg leading-relaxed font-medium mb-8">We handle the critical window between guest check-out and check-in. Professional cleaning, linen changes, and supply restocks—guaranteed.</p>
+                    <div class="card-enterprise p-8">
+                        <p class="text-ink font-bold italic">"AZAP has reduced my turnover time by 40%. The quality is consistent, and the NFC check-in gives me peace of mind."</p>
+                        <div class="mt-4 text-xs font-extrabold uppercase tracking-widest text-zinc-400">— Short-let Operator, Enugu</div>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-lg aspect-square bg-zinc-100 border border-zinc-200/60">
+                    <img src="/images/cleaning_localized.png" class="w-full h-full object-cover" alt="B2B Cleaning" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Corporate</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Daily office maintenance, kitchen management, and verified errands for your team.</p>
+                    <p class="text-xs font-extrabold tracking-widest text-accent">FROM ₦75k/mo</p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Airbnb</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">On-demand cleaning and guest support for independent hosts.</p>
+                    <p class="text-xs font-extrabold tracking-widest text-accent">FROM ₦30k/mo</p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Enterprise</h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Consolidated invoicing, dedicated account managers, and SLA guarantees.</p>
+                    <p class="text-xs font-extrabold tracking-widest text-accent">CUSTOM QUOTE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 section-dark text-center">
+        <div class="container-tight max-w-3xl">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Built for scale.</h2>
+            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">Request a consultation for your property portfolio or office space.</p>
+            <a href="/contact" class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 inline-flex px-8 py-4 text-base shadow-md">Contact B2B Team</a>
+        </div>
+    </section>
+</Layout>

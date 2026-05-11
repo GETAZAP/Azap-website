@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero';
+---
+
+<Layout title="Frequently Asked Questions">
+    <PageHero 
+        client:load
+        title="Common Questions." 
+        subtitle="Everything you need to know about booking, security protocols, and managing your services."
+    />
+    
+    <section class="py-24 px-6">
+        <div class="container-tight max-w-3xl !px-0">
+            <div class="space-y-8">
+                {[
+                  {
+                    q: "How fast can I get a provider?",
+                    a: "For instant bookings, our system automatically routes the nearest available provider to your location. Typically, a verified professional arrives at your door within 15 to 20 minutes of request confirmation."
+                  },
+                  {
+                    q: "How do you vet your providers?",
+                    a: "Every provider undergoes a mandatory 5-stage security pipeline. This includes biometric verification against the government NIMC database, bank statement verification, physical home address audits, and mandatory guarantor checks."
+                  },
+                  {
+                    q: "What happens if I need to reschedule?",
+                    a: "You can reschedule directly in the app at any time. Note that cancellations made less than 2 hours before the scheduled start time may incur a standard convenience fee to compensate the dispatched provider."
+                  },
+                  {
+                    q: "How does the NFC check-in work?",
+                    a: "Providers carry an encrypted AZAP ID card. Upon arrival, they tap it against your NFC-enabled smartphone. This immediately creates a non-reputable, GPS-backed record of entry for your security logs."
+                  },
+                  {
+                    q: "Are chemicals and equipment included?",
+                    a: "Yes. For standard and deep cleaning services, our providers bring enterprise-grade sanitization gear and cleaning materials. You don't need to supply anything unless you have specific material preferences."
+                  },
+                  {
+                    q: "How do I pay for the service?",
+                    a: "All transactions are secured digitally within the AZAP ecosystem. No cash is exchanged at the door. We hold the authorized payment and only release funds once completion is cryptographically logged by the provider."
+                  }
+                ].map(faq => (
+                    <div class="card-enterprise p-10 group">
+                        <h3 class="text-xl font-extrabold mb-3 tracking-tight text-ink group-hover:text-accent transition-colors">{faq.q}</h3>
+                        <p class="text-zinc-500 font-medium text-base leading-relaxed">{faq.a}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>

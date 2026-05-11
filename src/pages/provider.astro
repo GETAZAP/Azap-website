@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero";
+---
+
+<Layout title="Become a Provider">
+    <PageHero
+        client:load
+        title="Earn on your terms."
+        subtitle="Join the elite network of home service professionals in Enugu. Get paid instantly and manage your own schedule."
+        image="/images/provider_hero.png"
+    />
+
+    <section class="py-24 px-6">
+        <div class="container-tight !px-0">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Weekly Payouts
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        Enjoy reliable income with weekly direct deposits to
+                        your account. No more chasing payments.
+                    </p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Total Flexibility
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        You decide when and where you work. Our app makes it
+                        easy to set your availability and accept jobs.
+                    </p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Verified Safety
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        Our PINCode verification system protects you and
+                        everyone on the platform.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="section-dark rounded-3xl p-16 md:p-20 text-center max-w-3xl mx-auto"
+            >
+                <h2
+                    class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+                >
+                    Ready to join?
+                </h2>
+                <p
+                    class="text-lg text-zinc-400 mb-10 font-medium max-w-xl mx-auto leading-relaxed"
+                >
+                    We are currently accepting applications for Cooking,
+                    Cleaning, and Handyman services in Nigeria.
+                </p>
+                <a
+                    href="/contact"
+                    class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 inline-flex px-8 py-4 text-base shadow-md"
+                    >Start Application</a
+                >
+            </div>
+        </div>
+    </section>
+</Layout>
