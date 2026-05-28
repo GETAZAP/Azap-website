@@ -71,7 +71,7 @@ export default function AnimatedLanding() {
 
 
             <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold text-ink mb-6 leading-[1.1] tracking-tight">
-              The smarter way to run <br className="hidden md:block" /> your Nigerian home.
+              Your Space, Managed.
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
@@ -178,7 +178,7 @@ export default function AnimatedLanding() {
               </div>
             </div>
           </div>
-          
+
           {/* OLD IMAGE CODE:
           <div className="bg-zinc-50 rounded-[3rem] p-8 border border-zinc-200/60 mt-16 hidden">
             <div className="aspect-[4/5] bg-ink rounded-2xl overflow-hidden shadow-2xl relative">
