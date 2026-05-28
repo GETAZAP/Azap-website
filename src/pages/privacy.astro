@@ -1,23 +1,173 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Privacy Policy">
     <section class="pt-40 pb-32 px-6">
         <div class="container-tight max-w-3xl !px-0">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-12">Privacy Policy.</h1>
+            <h1
+                class="text-4xl md:text-5xl font-extrabold tracking-tight mb-12"
+            >
+                Privacy Policy.
+            </h1>
             <div class="space-y-10 text-zinc-500 font-medium leading-relaxed">
+                <p>
+                    Last updated: {
+                        new Date().toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                        })
+                    }
+                </p>
+                <p>
+                    This Privacy Policy describes how we collect, use, process,
+                    and disclose your personal information, in conjunction with
+                    your access to and use of the AZAP platform and services.
+                </p>
+
                 <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">1. Data Collection</h2>
-                    <p>We collect information you provide directly to us when you create an account, request a service, or communicate with us. This includes your name, email, phone number, and address.</p>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        1. Information We Collect
+                    </h2>
+                    <p class="mb-3">
+                        We collect three main categories of information:
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>
+                            <strong>Information You Provide:</strong> Account information
+                            (name, email, phone number), profile details, physical
+                            addresses for service delivery, and payment information.
+                        </li>
+                        <li>
+                            <strong>Information Automatically Collected:</strong
+                            > Device information, IP addresses, log data, and usage
+                            statistics when you interact with our platform.
+                        </li>
+                        <li>
+                            <strong>Location and Verification Data:</strong> We collect
+                            precise geolocation data and timestamp logs during the
+                            PINCode verification process to ensure service quality
+                            and security.
+                        </li>
+                    </ul>
                 </div>
+
                 <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">2. Verification Tech</h2>
-                    <p>Our NFC verification system logs the precise timestamp and location of service starts and completions to ensure security and quality of service.</p>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        2. How We Use Your Information
+                    </h2>
+                    <p class="mb-3">We use the collected information to:</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>Provide, maintain, and improve our services.</li>
+                        <li>
+                            Match you with vetted home service professionals.
+                        </li>
+                        <li>
+                            Process transactions and send related information,
+                            including confirmations and receipts.
+                        </li>
+                        <li>
+                            Send technical notices, updates, security alerts,
+                            and support messages.
+                        </li>
+                        <li>
+                            Respond to your comments, questions, and customer
+                            service requests.
+                        </li>
+                    </ul>
                 </div>
+
                 <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">3. Third Parties</h2>
-                    <p>We do not sell your personal data. We share information with service providers only as necessary to fulfill your requests.</p>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        3. Sharing of Information
+                    </h2>
+                    <p class="mb-3">
+                        We do not sell your personal data. We may share your
+                        information in the following circumstances:
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>
+                            <strong>With Service Providers:</strong> We share your
+                            necessary details (such as address and service requirements)
+                            with the independent professionals booked for your tasks.
+                        </li>
+                        <li>
+                            <strong>For Legal Reasons:</strong> We may disclose information
+                            if we believe it is necessary to comply with applicable
+                            laws, regulations, or legal processes.
+                        </li>
+                        <li>
+                            <strong>Business Transfers:</strong> In connection with
+                            any merger, sale of company assets, or acquisition of
+                            all or a portion of our business.
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        4. Data Security & Retention
+                    </h2>
+                    <p>
+                        We implement robust security measures to protect your
+                        personal information from unauthorized access,
+                        alteration, disclosure, or destruction. We retain your
+                        personal data only for as long as necessary to fulfill
+                        the purposes outlined in this Privacy Policy, unless a
+                        longer retention period is required by law.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        5. Your Privacy Rights
+                    </h2>
+                    <p>
+                        Depending on your jurisdiction, you may have the right
+                        to request access to, correction of, or deletion of your
+                        personal data. You may also have the right to object to
+                        or restrict certain processing of your data. To exercise
+                        these rights, please contact our support team.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        6. Cookies and Tracking
+                    </h2>
+                    <p>
+                        We use cookies and similar tracking technologies to
+                        track activity on our platform and hold certain
+                        information. You can instruct your browser to refuse all
+                        cookies or to indicate when a cookie is being sent.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        7. Changes to This Policy
+                    </h2>
+                    <p>
+                        We may update this Privacy Policy from time to time. We
+                        will notify you of any changes by posting the new
+                        Privacy Policy on this page and updating the "Last
+                        updated" date at the top.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink mb-3">
+                        8. Contact Us
+                    </h2>
+                    <p>
+                        If you have any questions about this Privacy Policy,
+                        please contact us at <a
+                            href="mailto:admin@getazap.com"
+                            class="text-accent font-bold hover:underline"
+                            >admin@getazap.com</a
+                        > or via our Contact page.
+                    </p>
                 </div>
             </div>
         </div>

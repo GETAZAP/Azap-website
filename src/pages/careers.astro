@@ -8,12 +8,38 @@ import PageHero from '../components/PageHero';
         client:load
         title="Join the core team." 
         subtitle="Help us build the ultimate operational operating system for the modern African household."
-        image="/images/about_hero.png"
     />
     
-    <section class="py-32 px-6">
+    <section class="py-24 px-6 bg-white">
         <div class="container-tight !px-0">
-            <div class="mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        High Impact
+                    </h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
+                        Every line of code and operational process you build directly improves the daily lives of families and service providers.
+                    </p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Autonomy
+                    </h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
+                        We don't micromanage. You own your domain, set your own cadence, and are evaluated entirely on the outcomes you generate.
+                    </p>
+                </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Top-Tier Network
+                    </h3>
+                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
+                        Work alongside ex-founders, deep tech engineers, and operational heavyweights solving hard physical-world problems.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-12">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Open Roles</h2>
                 <p class="text-zinc-500 text-lg font-medium">View active engineering, operational, and corporate vacancies.</p>
             </div>
@@ -25,20 +51,26 @@ import PageHero from '../components/PageHero';
                 </div>
                 <h3 class="text-xl font-extrabold text-ink mb-2">No active openings.</h3>
                 <p class="text-zinc-500 font-medium max-w-md leading-relaxed mb-8">We are not currently hiring for internal corporate positions. Follow our social channels to be notified when fresh nodes open up.</p>
-                <div class="flex gap-3">
+                <div class="flex flex-wrap justify-center gap-3">
                     <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Design</span>
                     <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Engineering</span>
-                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Ops</span>
+                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Operations</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-zinc-50 border-t border-zinc-200/50 px-6 text-center">
+    <section class="py-32 px-6 section-dark text-center">
         <div class="container-tight max-w-2xl">
-            <h3 class="text-2xl font-extrabold tracking-tight mb-4">Speculative Applications</h3>
-            <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">If you're exceptional and don't see a role, send a concise outline of how you'd impact AZAP to our talent repository.</p>
-            <a href="mailto:careers@azap.io" class="text-accent font-extrabold text-sm uppercase tracking-widest hover:underline">careers@azap.io</a>
+            <h3 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">Speculative Applications</h3>
+            <p class="text-zinc-400 font-medium text-lg leading-relaxed mb-10">If you're exceptional and don't see a role that fits, send a concise outline of how you'd impact AZAP to our talent repository.</p>
+            <div class="flex justify-center">
+                <a
+                    href="mailto:careers@getazap.com"
+                    class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 w-fit px-8 py-4 text-base shadow-md font-bold"
+                    >careers@getazap.com</a
+                >
+            </div>
         </div>
     </section>
 </Layout>

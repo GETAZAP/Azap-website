@@ -1,30 +1,82 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageHero from '../components/PageHero';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="About Us">
-    <PageHero 
-        client:load
-        title="Redefining Home Management." 
-        subtitle="AZAP was founded to bring professional, high-fidelity home services to modern families in Nigeria."
-        image="/images/about_hero.png"
-    />
-    
-    <section class="py-32 px-6 text-center">
-        <div class="container-tight max-w-3xl">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Our Mission</h2>
-            <p class="text-xl text-zinc-500 font-medium leading-relaxed mb-20 max-w-2xl mx-auto italic">"To empower homeowners with time and peace of mind through a network of elite, verified professionals."</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+    <section
+        class="min-h-[calc(100vh-5rem)] flex items-center justify-center py-24 px-6 bg-white"
+    >
+        <div class="container-tight !px-0 w-full">
+            <div class="text-center max-w-3xl mx-auto mb-24 mt-20">
+                <h2
+                    class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+                >
+                    Our Mission
+                </h2>
+                <p
+                    class="text-l text-zinc-500 font-medium leading-relaxed italic"
+                >
+                    "To empower homeowners with time and peace of mind through a
+                    network of elite, verified professionals."
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 text-left">
                 <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Integrity</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">We believe in radical transparency and absolute reliability. Every provider is vetted, and every service is verified.</p>
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Integrity
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        We believe in radical transparency and absolute
+                        reliability. Every provider is rigorously vetted and
+                        continuously audited.
+                    </p>
                 </div>
                 <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Innovation</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">We use technology like NFC and smart scheduling to solve real-world trust and efficiency problems in the service industry.</p>
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Innovation
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        We use technology like PINCode verification and
+                        intelligent routing to solve real-world trust and
+                        efficiency bottlenecks.
+                    </p>
                 </div>
+                <div class="card-enterprise p-10">
+                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
+                        Excellence
+                    </h3>
+                    <p
+                        class="text-zinc-500 font-medium text-sm leading-relaxed"
+                    >
+                        Good isn't enough. We operate a premium tier of service
+                        designed to replicate five-star hospitality standards in
+                        your home.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 section-dark text-center">
+        <div class="container-tight max-w-2xl">
+            <h3 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
+                Want to learn more?
+            </h3>
+            <p class="text-zinc-400 font-medium text-lg leading-relaxed mb-10">
+                We'd love to hear from you. Reach out to our team with any
+                questions, partnerships, or feedback.
+            </p>
+            <div class="flex justify-center">
+                <a
+                    href="/contact"
+                    class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 w-fit px-8 py-4 text-base shadow-md font-bold"
+                    >Get in Touch</a
+                >
             </div>
         </div>
     </section>

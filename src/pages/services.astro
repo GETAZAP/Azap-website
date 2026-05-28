@@ -1,60 +1,131 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageHero from '../components/PageHero';
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero";
 ---
 
 <Layout title="Our Services">
-    <PageHero 
+    <PageHero
         client:load
-        title="Everything your home needs." 
+        title="Everything your home needs."
         subtitle="From gourmet meals to childcare and corporate errands, we provide verified professional services at your doorstep."
         image="/images/cleaning_localized.png"
     />
-    
+
     <section class="py-32 px-6">
         <div class="container-tight !px-0">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32">
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32"
+            >
                 <div>
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">Gourmet Cooking</h2>
-                    <p class="text-zinc-500 text-lg leading-relaxed font-medium mb-8">Our chefs are more than just cooks. They are vetted professionals who bring the restaurant experience to your home. We handle meal planning, shopping, and the cooking, leaving you with a spotless kitchen and a delicious meal.</p>
+                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">
+                        Gourmet Cooking
+                    </h2>
+                    <p
+                        class="text-zinc-500 text-lg leading-relaxed font-medium mb-8"
+                    >
+                        Our chefs are more than just cooks. They are vetted
+                        professionals who bring the restaurant experience to
+                        your home. We handle meal planning, shopping, and the
+                        cooking, leaving you with a spotless kitchen and a
+                        delicious meal.
+                    </p>
                     <ul class="space-y-4 font-bold text-sm text-zinc-500">
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Customized Meal Plans</li>
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Fresh Ingredient Sourcing</li>
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Kitchen Cleanup Included</li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Customized Meal Plans
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Fresh Ingredient Sourcing
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Kitchen Cleanup Included
+                        </li>
                     </ul>
                 </div>
-                <div class="rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60">
-                    <img src="/images/chef_localized.png" alt="Cooking service" class="w-full h-full object-cover" />
+                <div
+                    class="rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60"
+                >
+                    <img
+                        src="/images/chef_localized.png"
+                        alt="Cooking service"
+                        class="w-full h-full object-cover"
+                    />
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32">
-                <div class="order-2 md:order-1 rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60">
-                    <img src="/images/cleaning_localized.png" alt="Cleaning service" class="w-full h-full object-cover" />
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32"
+            >
+                <div
+                    class="order-2 md:order-1 rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60"
+                >
+                    <img
+                        src="/images/cleaning_localized.png"
+                        alt="Cleaning service"
+                        class="w-full h-full object-cover"
+                    />
                 </div>
                 <div class="order-1 md:order-2">
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">Deep Cleaning</h2>
-                    <p class="text-zinc-500 text-lg leading-relaxed font-medium mb-8">A pristine home is the foundation of a managed life. Our specialists use professional-grade equipment and eco-friendly products to ensure your home isn't just tidy, but truly clean.</p>
+                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">
+                        Deep Cleaning
+                    </h2>
+                    <p
+                        class="text-zinc-500 text-lg leading-relaxed font-medium mb-8"
+                    >
+                        A pristine home is the foundation of a managed life. Our
+                        specialists use professional-grade equipment and
+                        eco-friendly products to ensure your home isn't just
+                        tidy, but truly clean.
+                    </p>
                     <ul class="space-y-4 font-bold text-sm text-zinc-500">
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Recurring or One-time</li>
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Post-Construction Cleaning</li>
-                        <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-accent rounded-full" /> Move-in / Move-out Specialists</li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Recurring or One-time
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Post-Construction Cleaning
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
+                            ></span> Move-in / Move-out Specialists
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  { t: 'Handyman', d: 'Repairs, furniture assembly, and electrical maintenance.' },
-                  { t: 'Childcare', d: 'Verified, background-checked care for your children.' },
-                  { t: 'Laundry', d: 'Wash, fold, and professional dry cleaning services.' },
-                  { t: 'Errands', d: 'Logistics, shopping, and specialized personal tasks.' }
-                ].map(s => (
-                    <div class="card-enterprise p-10 group">
-                        <h3 class="text-xl font-extrabold mb-3 tracking-tight group-hover:text-accent transition-colors">{s.t}</h3>
-                        <p class="text-zinc-500 font-medium text-sm leading-relaxed">{s.d}</p>
-                    </div>
-                ))}
+                {
+                    [
+                        {
+                            t: "Handyman",
+                            d: "Repairs, furniture assembly, and electrical maintenance.",
+                        },
+                        {
+                            t: "Cooking",
+                            d: "Verified, background-checked chefs.",
+                        },
+                        {
+                            t: "Laundry",
+                            d: "Wash, fold, and professional dry cleaning services.",
+                        },
+                        {
+                            t: "Errands",
+                            d: "Logistics, shopping, and specialized personal tasks.",
+                        },
+                    ].map((s) => (
+                        <div class="card-enterprise p-10 group">
+                            <h3 class="text-xl font-extrabold mb-3 tracking-tight group-hover:text-accent transition-colors">
+                                {s.t}
+                            </h3>
+                            <p class="text-zinc-500 font-medium text-sm leading-relaxed">
+                                {s.d}
+                            </p>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     </section>

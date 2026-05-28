@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Icons = {
@@ -10,6 +10,43 @@ const Icons = {
 };
 
 export default function AnimatedLanding() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'cc5def3e-3759-44f9-a161-41ab0db6b3ff',
+          subject: 'New Waitlist Submission',
+          email: email,
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        console.error('Submission failed:', result);
+        setStatus('idle');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('idle');
+    }
+  };
+
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as any } }
@@ -23,18 +60,15 @@ export default function AnimatedLanding() {
     <div className="bg-background relative w-full overflow-x-hidden text-ink pt-20">
 
       {/* 1. CLEAN HERO */}
-      <section className="relative py-24 md:py-24">
-        <div className="container-tight text-center">
+      <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center py-20">
+        <div className="container-tight text-center w-full">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={stagger}
             className="max-w-4xl mx-auto"
           >
-            <motion.span variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 text-accent rounded-full text-xs font-extrabold tracking-wide uppercase mb-8">
-              <span className="h-1.5 w-1.5 bg-accent rounded-full animate-pulse" />
-              Available Now in Enugu
-            </motion.span>
+
 
             <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold text-ink mb-6 leading-[1.1] tracking-tight">
               The smarter way to run <br className="hidden md:block" /> your Nigerian home.
@@ -54,26 +88,7 @@ export default function AnimatedLanding() {
             </motion.div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative mx-auto max-w-5xl px-4"
-          >
-            <div className="aspect-[21/9] bg-zinc-100 rounded-3xl overflow-hidden shadow-xl border border-zinc-200/50 relative">
-              <img src="/images/cleaning_localized.png" alt="Clean interior" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-white p-4 md:p-6 rounded-2xl shadow-2xl border border-zinc-100/50 max-w-xs flex gap-4 text-left">
-                <div className="h-12 w-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
-                  <Icons.Cleaning />
-                </div>
-                <div>
-                  <div className="font-extrabold text-zinc-900">Cleaning dispatched</div>
-                  <div className="text-sm text-zinc-500">Professional arriving in 12 min</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+
         </div>
       </section>
 
@@ -136,54 +151,55 @@ export default function AnimatedLanding() {
         </div>
       </section>
 
-      {/* 4. HOW IT WORKS (STEP BY STEP) */}
       <section className="py-24 md:py-32 bg-white">
-        <div className="container-tight grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-12 leading-tight">Get verified help in 3 simple steps.</h2>
+        <div className="container-tight max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-16 leading-tight">Get verified help in 3 simple steps.</h2>
 
-            <div className="space-y-10">
-              <div className="flex gap-6">
-                <div className="h-10 w-10 rounded-full bg-ink text-white flex items-center justify-center font-black shrink-0">1</div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Select your chores</h4>
-                  <p className="text-zinc-500 font-medium leading-relaxed">Choose from our catalogue of 20+ specialized services. Mix and stack multiple tasks into one single booking.</p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-left">
+            <div className="flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-ink text-white flex items-center justify-center font-black text-xl shrink-0">1</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">Select your chores</h4>
+                <p className="text-zinc-500 font-medium leading-relaxed">Choose from our catalogue of 20+ specialized services. Mix and stack multiple tasks into one single booking.</p>
               </div>
-              <div className="flex gap-6">
-                <div className="h-10 w-10 rounded-full bg-ink text-white flex items-center justify-center font-black shrink-0">2</div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Set the time</h4>
-                  <p className="text-zinc-500 font-medium leading-relaxed">Choose 'Instant' to get a Pro in 15 minutes, or schedule for a convenient later time that fits your roadmap.</p>
-                </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-ink text-white flex items-center justify-center font-black text-xl shrink-0">2</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">Set the time</h4>
+                <p className="text-zinc-500 font-medium leading-relaxed">Choose 'Instant' to get a Pro in 15 minutes, or schedule for a convenient later time that fits your roadmap.</p>
               </div>
-              <div className="flex gap-6">
-                <div className="h-10 w-10 rounded-full bg-ink text-white flex items-center justify-center font-black shrink-0">3</div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Pay and relax</h4>
-                  <p className="text-zinc-500 font-medium leading-relaxed">Secure flat pricing transparently calculated upfront. No hidden fees. Your Pro checks in via secure PIN code.</p>
-                </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="h-12 w-12 rounded-full bg-ink text-white flex items-center justify-center font-black text-xl shrink-0">3</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">Pay and relax</h4>
+                <p className="text-zinc-500 font-medium leading-relaxed">Secure flat pricing transparently calculated upfront. No hidden fees. Your Pro checks in via secure PIN code.</p>
               </div>
             </div>
           </div>
-          <div className="bg-zinc-50 rounded-[3rem] p-8 border border-zinc-200/60">
+          
+          {/* OLD IMAGE CODE:
+          <div className="bg-zinc-50 rounded-[3rem] p-8 border border-zinc-200/60 mt-16 hidden">
             <div className="aspect-[4/5] bg-ink rounded-2xl overflow-hidden shadow-2xl relative">
               <img src="/images/nfc_localized.png" className="w-full h-full object-cover opacity-80" alt="Mobile interaction" />
             </div>
           </div>
+          */}
         </div>
       </section>
 
       {/* 5. THE PROMISE / QUALITY ASSURANCE (Dark Contrast Block) */}
       <section className="py-24 md:py-32 section-dark relative overflow-hidden">
         <div className="container-tight relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          {/* OLD CODE: <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center"> */}
+          <div className="grid grid-cols-1 max-w-4xl mx-auto gap-16 items-center text-center">
             <div>
               <span className="text-accent font-extrabold text-sm uppercase tracking-widest mb-4 block">The AZAP Promise</span>
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">Standardized excellence. Every single visit.</h2>
               <p className="text-zinc-400 text-lg mb-10 font-medium leading-relaxed">We don't just match you with anyone. We operate a hyper-vetted network of professionals who undergo rigorous skill-testing and comprehensive verification before entering our ecosystem.</p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                   <h4 className="text-lg font-bold text-white mb-2">Skill Audits</h4>
                   <p className="text-sm text-zinc-400">Continuous real-world quality assessments keep service quality impeccable.</p>
@@ -194,6 +210,7 @@ export default function AnimatedLanding() {
                 </div>
               </div>
             </div>
+            {/*
             <div className="w-full aspect-square md:aspect-[4/5] relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
               <img src="/images/provider_hero.png" className="w-full h-full object-cover" alt="Elite Provider" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -202,6 +219,7 @@ export default function AnimatedLanding() {
                 <div className="text-zinc-300 text-sm">Only the most qualified professionals make it onto our platform.</div>
               </div>
             </div>
+            */}
           </div>
         </div>
       </section>
@@ -212,18 +230,32 @@ export default function AnimatedLanding() {
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-ink">Ready to save time?</h2>
           <p className="text-zinc-600 text-lg md:text-xl font-medium mb-12">Join the platform delivering premium, transparent household operations.</p>
 
-          <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 bg-zinc-50 border border-zinc-200 p-2 rounded-full overflow-hidden" onSubmit={(e) => e.preventDefault()}>
+          <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 bg-zinc-50 border border-zinc-200 p-2 rounded-full overflow-hidden" onSubmit={handleSubmit}>
             <input
               type="email"
               placeholder="Enter your email"
               required
-              className="flex-1 px-6 py-3 bg-transparent focus:outline-none text-ink font-medium placeholder:text-zinc-400"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={status === 'loading' || status === 'success'}
+              className="flex-1 px-6 py-3 bg-transparent focus:outline-none text-ink font-medium placeholder:text-zinc-400 disabled:opacity-50"
             />
-            <button type="submit" className="btn-capsule bg-accent text-white border-transparent hover:bg-accent-hover px-8 shadow-lg shadow-accent/20">
-              Submit
+            <button
+              type="submit"
+              disabled={status === 'loading' || status === 'success'}
+              className="btn-capsule bg-accent text-white border-transparent hover:bg-accent-hover px-8 shadow-lg shadow-accent/20 disabled:opacity-80 disabled:cursor-not-allowed"
+            >
+              {status === 'loading' ? 'Sending...' : status === 'success' ? 'Joined!' : 'Submit'}
             </button>
           </form>
-          <p className="text-zinc-400 text-sm mt-6 font-bold uppercase tracking-widest">Request invite code</p>
+          {status === 'success' && (
+            <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-accent text-sm mt-6 font-bold">
+              Thanks for joining! We'll be in touch soon.
+            </motion.p>
+          )}
+          {status !== 'success' && (
+            <p className="text-zinc-400 text-sm mt-6 font-bold uppercase tracking-widest">Request invite code</p>
+          )}
         </div>
       </section>
 
