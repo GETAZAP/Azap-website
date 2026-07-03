@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://getazap.com/sitemap.xml
+Sitemap: https://www.getazap.com/sitemap.xml
