@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Icons = {
   Cooking: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-3.5c0-1.4-1.1-2.5-2.5-2.5h-5c-1.4 0-2.5 1.1-2.5 2.5V21" /><path d="M12 15V8" /><path d="M6 12a4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4" /><path d="M18 12a4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4" /></svg>,
@@ -26,7 +26,7 @@ export default function AnimatedLanding() {
           Accept: 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'cc5def3e-3759-44f9-a161-41ab0db6b3ff',
+          access_key: import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY,
           subject: 'New Waitlist Submission',
           email: email,
         })
@@ -82,7 +82,7 @@ export default function AnimatedLanding() {
               <a href="#waitlist" className="btn-capsule bg-ink text-white border-ink px-8 py-4 text-base hover:bg-zinc-800 w-full sm:w-auto shadow-md">
                 Book now
               </a>
-              <a href="#" className="btn-capsule bg-white text-ink border-zinc-200 hover:bg-zinc-50 px-8 py-4 text-base w-full sm:w-auto">
+              <a href="/how-it-works" className="btn-capsule bg-white text-ink border-zinc-200 hover:bg-zinc-50 px-8 py-4 text-base w-full sm:w-auto">
                 Learn how it works
               </a>
             </motion.div>
@@ -134,13 +134,13 @@ export default function AnimatedLanding() {
                 className="card-enterprise bg-white flex flex-col"
               >
                 <div className="h-48 overflow-hidden border-b border-zinc-100 bg-zinc-50">
-                  <img src={item.i} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="" />
+                  <img src={item.i} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={item.t} />
                 </div>
                 <div className="p-8 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold mb-3 text-ink">{item.t}</h3>
                   <p className="text-zinc-500 font-medium mb-8 text-sm leading-relaxed">{item.d}</p>
                   <div className="mt-auto">
-                    <a href="#" className="text-sm font-bold text-accent hover:text-accent-hover flex items-center gap-1">
+                    <a href="/services" className="text-sm font-bold text-accent hover:text-accent-hover flex items-center gap-1">
                       View service details <Icons.ArrowRight />
                     </a>
                   </div>
@@ -178,21 +178,12 @@ export default function AnimatedLanding() {
               </div>
             </div>
           </div>
-
-          {/* OLD IMAGE CODE:
-          <div className="bg-zinc-50 rounded-[3rem] p-8 border border-zinc-200/60 mt-16 hidden">
-            <div className="aspect-[4/5] bg-ink rounded-2xl overflow-hidden shadow-2xl relative">
-              <img src="/images/nfc_localized.png" className="w-full h-full object-cover opacity-80" alt="Mobile interaction" />
-            </div>
-          </div>
-          */}
         </div>
       </section>
 
       {/* 5. THE PROMISE / QUALITY ASSURANCE (Dark Contrast Block) */}
       <section className="py-24 md:py-32 section-dark relative overflow-hidden">
         <div className="container-tight relative z-10">
-          {/* OLD CODE: <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center"> */}
           <div className="grid grid-cols-1 max-w-4xl mx-auto gap-16 items-center text-center">
             <div>
               <span className="text-accent font-extrabold text-sm uppercase tracking-widest mb-4 block">The AZAP Promise</span>
@@ -210,16 +201,6 @@ export default function AnimatedLanding() {
                 </div>
               </div>
             </div>
-            {/*
-            <div className="w-full aspect-square md:aspect-[4/5] relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-              <img src="/images/provider_hero.png" className="w-full h-full object-cover" alt="Elite Provider" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                <div className="text-white font-extrabold text-lg mb-1">Top 2% Selection</div>
-                <div className="text-zinc-300 text-sm">Only the most qualified professionals make it onto our platform.</div>
-              </div>
-            </div>
-            */}
           </div>
         </div>
       </section>

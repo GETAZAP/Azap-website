@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
 ---
 
-<Layout title="Pricing">
+<Layout title="Pricing" description="Free for everyone, with AZAP Pass and AZAP Plus premium plans that unlock discounts after your first bookings.">
     <PageHero 
         client:load
         title="Transparent pricing." 
@@ -17,7 +17,7 @@ import PageHero from '../components/PageHero';
                     <div>
                         <h3 class="text-2xl font-extrabold mb-1 tracking-tight">Free</h3>
                         <p class="text-zinc-400 font-bold text-xs uppercase tracking-widest mb-10">Default</p>
-                        <div class="text-5xl font-extrabold mb-10 tracking-tighter">₦0</div>
+                        <div class="text-5xl font-extrabold mb-10 tracking-normal"><span class="mr-2">₦</span>0</div>
                         <ul class="space-y-3 text-zinc-500 font-medium text-sm mb-10">
                             <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-ink rounded-full" /> Standard rates</li>
                             <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 bg-ink rounded-full" /> Basic matching</li>

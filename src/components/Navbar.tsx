@@ -14,6 +14,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <a href="/services" className="text-sm font-bold text-zinc-600 hover:text-ink transition-colors">Services</a>
           <a href="/how-it-works" className="text-sm font-bold text-zinc-600 hover:text-ink transition-colors">How it works</a>
+          <a href="/business" className="text-sm font-bold text-zinc-600 hover:text-ink transition-colors">Business</a>
           <a href="/provider" className="text-sm font-bold text-zinc-600 hover:text-ink transition-colors">Become a Provider</a>
         </div>
 
@@ -50,6 +51,7 @@ export default function Navbar() {
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-zinc-200/50 shadow-lg py-4 px-6 flex flex-col gap-4">
           <a href="/services" className="text-base font-bold text-zinc-600 hover:text-ink" onClick={() => setIsOpen(false)}>Services</a>
           <a href="/how-it-works" className="text-base font-bold text-zinc-600 hover:text-ink" onClick={() => setIsOpen(false)}>How it works</a>
+          <a href="/business" className="text-base font-bold text-zinc-600 hover:text-ink" onClick={() => setIsOpen(false)}>Business</a>
           <a href="/provider" className="text-base font-bold text-zinc-600 hover:text-ink" onClick={() => setIsOpen(false)}>Become a Provider</a>
           <div className="pt-4 mt-2 border-t border-zinc-100 flex justify-center">
             <a href="/#waitlist" className="btn-capsule bg-ink text-white border-transparent hover:bg-zinc-800 w-full text-center" onClick={() => setIsOpen(false)}>

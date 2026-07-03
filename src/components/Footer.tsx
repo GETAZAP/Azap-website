@@ -21,6 +21,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm font-bold text-zinc-500">
               <li><a href="/about" className="hover:text-ink transition-colors">About</a></li>
               <li><a href="/provider" className="hover:text-ink transition-colors">Partners</a></li>
+              <li><a href="/business" className="hover:text-ink transition-colors">Business</a></li>
               <li><a href="/careers" className="hover:text-ink transition-colors">Careers</a></li>
             </ul>
           </div>
@@ -46,10 +47,6 @@ export default function Footer() {
         <div className="pt-8 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-xs font-bold text-zinc-400 tracking-wide">
             © {new Date().getFullYear()} AZAP Technologies Inc. All rights reserved.
-          </div>
-          <div className="flex gap-6 text-xs font-bold text-zinc-400">
-            <a href="#" className="hover:text-ink">Twitter</a>
-            <a href="#" className="hover:text-ink">LinkedIn</a>
           </div>
         </div>
       </div>

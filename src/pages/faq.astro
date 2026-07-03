@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
 ---
 
-<Layout title="Frequently Asked Questions">
+<Layout title="Frequently Asked Questions" description="Answers to common questions about booking, provider verification, pricing, and how AZAP works.">
     <PageHero 
         client:load
         title="Common Questions." 
@@ -20,15 +20,15 @@ import PageHero from '../components/PageHero';
                   },
                   {
                     q: "How do you vet your providers?",
-                    a: "Every provider undergoes a mandatory 5-stage security pipeline. This includes biometric verification against the government NIMC database, bank statement verification, physical home address audits, and mandatory guarantor checks."
+                    a: "Every provider undergoes a mandatory 5-stage verification pipeline: phone OTP, NIN verification against the government NIMC database, BVN and bank account matching, a two-guarantor check, and a live face liveness check. Providers who complete all 5 stages receive the AZAP Verified badge."
                   },
                   {
                     q: "What happens if I need to reschedule?",
-                    a: "You can reschedule directly in the app at any time. Note that cancellations made less than 2 hours before the scheduled start time may incur a standard convenience fee to compensate the dispatched provider."
+                    a: "You can reschedule directly in the app at any time. Note that cancellations made within 24 hours of your scheduled start time may incur a standard cancellation fee to compensate the dispatched provider."
                   },
                   {
-                    q: "How does the NFC check-in work?",
-                    a: "Providers carry an encrypted AZAP ID card. Upon arrival, they tap it against your NFC-enabled smartphone. This immediately creates a non-reputable, GPS-backed record of entry for your security logs."
+                    q: "How does the PIN code check-in work?",
+                    a: "Your provider shares a unique 4-digit PINCode with you upon arrival, which you confirm in the app. This immediately creates a non-repudiable, GPS-backed record of entry for your security logs."
                   },
                   {
                     q: "Are chemicals and equipment included?",

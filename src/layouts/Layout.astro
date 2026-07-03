@@ -6,9 +6,17 @@ import Footer from '../components/Footer';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Verified cooking, cleaning, and household management delivered in minutes. Launching soon in Enugu." } = Astro.props;
+const {
+  title,
+  description = "Verified cooking, cleaning, and household management delivered in minutes. Launching soon in Enugu.",
+  image = "/images/about_hero.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://getazap.com");
+const ogImageURL = new URL(image, Astro.site ?? "https://getazap.com");
 ---
 
 <!DOCTYPE html>
@@ -18,7 +26,25 @@ const { title, description = "Verified cooking, cleaning, and household manageme
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | AZAP</title>
     <meta name="description" content={description}>
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | AZAP`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="AZAP" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={`${title} | AZAP`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
