@@ -154,8 +154,20 @@ export default function Footer() {
     }
   };
 
+  /*
+   * The footer has to read as a different surface from the page above it, and
+   * it did not. zinc-50 is #FAFAFA and so is --color-background, so on every
+   * page except the homepage the join was #FAFAFA meeting #FAFAFA: an identical
+   * colour with a 70%-opacity hairline over it, which is no edge at all. On the
+   * homepage it was #FFFFFF meeting #FAFAFA, 1.04:1.
+   *
+   * zinc-100 is a step darker than both the page ground and the homepage's
+   * white CTA, and the rule above it is now solid rather than 70%. Text still
+   * clears AA on it — zinc-600 at 7.03:1 — and the inner rules moved to
+   * zinc-300 so they stay visible against the darker ground.
+   */
   return (
-    <footer className="py-16 md:py-24 bg-zinc-50 border-t border-zinc-200/70 px-6 font-sans">
+    <footer className="py-16 md:py-24 bg-zinc-100 border-t border-zinc-200 px-6 font-sans">
       <div className="container-tight !px-0">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5 md:gap-12 mb-10 md:mb-16">
           <div className="md:col-span-2 mb-2 md:mb-0">
@@ -204,7 +216,7 @@ export default function Footer() {
               global.css, so desktop never sees a disclosure at all and nothing
               is hidden from anyone on a large screen. */}
           {LINK_GROUPS.map((g) => (
-            <details key={g.heading} open className="footer-group border-b border-zinc-200/70 md:border-0">
+            <details key={g.heading} open className="footer-group border-b border-zinc-300/70 md:border-0">
               <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-xs font-extrabold uppercase tracking-widest text-ink md:mb-6 md:min-h-0 md:cursor-default">
                 {g.heading}
                 <svg
@@ -226,7 +238,7 @@ export default function Footer() {
         </div>
 
         {/* Out-of-area capture */}
-        <div className="py-10 border-t border-zinc-200">
+        <div className="py-10 border-t border-zinc-300/70">
           <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
             <div className="md:flex-1">
               <h2 className="font-extrabold text-ink tracking-tight mb-1">Not in Enugu yet?</h2>
@@ -237,7 +249,7 @@ export default function Footer() {
 
             <form
               onSubmit={handleSubmit}
-              className="relative w-full md:w-auto md:min-w-[380px] flex gap-2 bg-white border border-zinc-200 p-1.5 rounded-full"
+              className="relative w-full md:w-auto md:min-w-[380px] flex gap-2 bg-white border border-zinc-300 p-1.5 rounded-full"
             >
               {/* Honeypot — see ContactForm. This one sits on the footer of
                   every page, which makes it the most-crawled form on the site. */}
@@ -301,7 +313,7 @@ export default function Footer() {
           )}
         </div>
 
-        <div className="pt-8 border-t border-zinc-200 flex flex-col-reverse md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-zinc-300/70 flex flex-col-reverse md:flex-row justify-between items-center gap-4">
           {/* getFullYear() rather than a literal: this renders at build time
               into the static HTML and again on hydration, so it is right on
               1 January without anyone editing a file. */}

@@ -184,7 +184,7 @@ export default function AnimatedLanding() {
         </div>
       </section>
 
-      <section className="py-24 md:py-20 md:py-32 bg-white">
+      <section className="py-16 md:py-32 bg-white">
         <div className="container-tight max-w-5xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-16 leading-tight">Get verified help in 3 simple steps.</h2>
 
@@ -220,7 +220,7 @@ export default function AnimatedLanding() {
       </section>
 
       {/* 5. THE PROMISE / QUALITY ASSURANCE (Dark Contrast Block) */}
-      <section className="py-24 md:py-20 md:py-32 section-dark relative overflow-hidden">
+      <section className="py-16 md:py-32 section-dark relative overflow-hidden">
         <div className="container-tight relative z-10">
           <div className="grid grid-cols-1 max-w-4xl mx-auto gap-16 items-center text-center">
             <div>
@@ -263,7 +263,7 @@ export default function AnimatedLanding() {
           capture that used to sit under it now lives in the site footer,
           where it is on every page and competes with nothing. The
           #waitlist id is kept so older external links still land here. */}
-      <section id="waitlist" className="py-32 md:py-24 md:py-48 bg-white">
+      <section id="waitlist" className="py-20 md:py-48 bg-white">
         <div className="container-tight text-center max-w-3xl">
           {/* The last thing read before the decision, so it answers the last
               question left: what actually happens after the button. The

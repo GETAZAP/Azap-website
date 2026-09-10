@@ -7,6 +7,53 @@ database live in the `Azap` repository and are logged there.
 
 ---
 
+## [2026-09-10] — No visible divider above the footer, and a bad regex behind it
+
+Spotted on the live site: nothing separates the closing CTA from the footer.
+
+### The footer was the same colour as the page
+
+`bg-zinc-50` is `#FAFAFA` and so is `--color-background`. So on every page
+except the homepage the join was **#FAFAFA meeting #FAFAFA — 1.000:1, no edge
+at all** — with a `border-zinc-200/70` hairline over it, which computes to about
+`#e9e9ec` and is 1.16:1 against its own background. On the homepage the CTA is
+white, so the join was 1.044:1. Effectively invisible either way.
+
+The footer now sits on `zinc-100` with a solid `zinc-200` rule. Measured at the
+boundary afterwards, three distinct values instead of one:
+
+| | before | after |
+|---|---|---|
+| page above | `250,250,250` | `250,250,250` |
+| rule | 70% hairline | `228,228,231` |
+| footer | `250,250,250` | `244,244,245` |
+
+Inner rules moved to `zinc-300/70` and the email field's border to `zinc-300`, so
+they still read against the darker ground. Footer text re-checked on the new
+surface across five pages: **no contrast failures**, zinc-600 at 7.03:1.
+
+### The bug underneath it
+
+Looking at the section above the footer turned up
+`py-32 md:py-24 md:py-48` — a class with two `md:` values.
+
+The mobile-first padding pass used `\bpy-32\b(?! md:)`, and `\b` matches after
+the colon in `md:py-32`, so on any class that was **already responsive** the
+regex rewrote the desktop half instead of the mobile one. Three sections on the
+homepage were hit. The effect was silent: they kept their desktop padding on
+mobile and gained a dead class, so the reduction that pass was supposed to make
+never happened there.
+
+Fixed to `py-16 md:py-32` and `py-20 md:py-48`. The homepage is now **5.3
+screens at 375px, not the 5.6 previously recorded** — the earlier 9% figure was
+understated because those three sections had not actually changed. No other file
+was affected; the whole site was re-scanned for the pattern.
+
+Worth keeping: a bulk regex over class names needs a guard against matching
+inside a variant prefix, not just after one.
+
+---
+
 ## [2026-09-10] — Photography: two AI images replaced with stock
 
 The cofounders want photographs rather than AI images. Only three AI images were
