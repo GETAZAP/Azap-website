@@ -7,13 +7,41 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /* Keeps a page out of search results. Set on /404 only: an indexed error page
+     competes with the real ones and shows up as a dead result. */
+  noindex?: boolean;
+  /* Set only on pages whose first section is a dark full-bleed hero. The navbar
+     then starts transparent with white type and swaps to light glass on scroll.
+     Left false everywhere else: those pages have light backgrounds, where white
+     navbar type would be invisible. */
+  overHero?: boolean;
 }
 
 const {
   title,
-  description = "Verified cooking, cleaning, and household management delivered in minutes. Launching soon in Enugu.",
-  image = "/images/about_hero.png",
+  description = "AZAP sends vetted service providers across Enugu, whatever the job. Free to book, no commission, and you agree the price directly with your pro.",
+  /*
+   * A render of the homepage itself, not a composed graphic — so the type is
+   * the site's own Plus Jakarta Sans rather than whatever a design tool had to
+   * hand, and it cannot drift out of date the way a hand-built card does.
+   *
+   * 1200x630, because every other image on this site is square and a square
+   * crops to a face-height sliver in a WhatsApp preview, which is how a link to
+   * this site actually travels.
+   *
+   * To regenerate after a hero change: `npm run build`, `npm run preview`, then
+   *   chrome --headless --hide-scrollbars --force-device-scale-factor=2 \
+   *     --window-size=1200,630 --virtual-time-budget=6000 \
+   *     --screenshot=out.png http://localhost:4322/
+   * and downsample out.png to 1200x630. The 2x capture is what keeps the text
+   * crisp once a preview card scales it.
+   */
+  image = "/images/og.jpg",
+  overHero = false,
+  noindex = false,
 } = Astro.props;
+
+const PHONE_E164 = "+2347047231349";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://getazap.com");
 const ogImageURL = new URL(image, Astro.site ?? "https://getazap.com");
@@ -27,8 +55,19 @@ const ogImageURL = new URL(image, Astro.site ?? "https://getazap.com");
     <title>{title} | AZAP</title>
     <meta name="description" content={description}>
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/png" href="/images/logo.png" />
-    <link rel="apple-touch-icon" href="/images/logo.png" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <!-- Icons. The source logo is a black glyph on transparency, which vanishes
+         against dark browser chrome and reads as a smudge at 16px, so every
+         icon below is that glyph in white on an ink tile. apple-touch-icon is a
+         full square with no alpha because iOS applies its own rounding and
+         renders transparency as black. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#09090B" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -36,7 +75,11 @@ const ogImageURL = new URL(image, Astro.site ?? "https://getazap.com");
     <meta property="og:title" content={`${title} | AZAP`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={description} />
     <meta property="og:site_name" content="AZAP" />
+    <meta property="og:locale" content="en_NG" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -45,23 +88,38 @@ const ogImageURL = new URL(image, Astro.site ?? "https://getazap.com");
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-    </style>
+    {/* The font is bundled by Vite from @fontsource-variable and served from
+        this origin — see the @import at the top of global.css. There is
+        deliberately no request to Google here. */}
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "AZAP",
+      legalName: "AZAP Operations Limited",
+      url: "https://www.getazap.com",
+      logo: "https://www.getazap.com/icon-512.png",
+      description: "Vetted service providers for home and business jobs in Enugu, Nigeria.",
+      telephone: PHONE_E164,
+      email: "support@getazap.com",
+      areaServed: { "@type": "City", name: "Enugu", address: { "@type": "PostalAddress", addressRegion: "Enugu", addressCountry: "NG" } },
+      address: { "@type": "PostalAddress", addressLocality: "Enugu", addressRegion: "Enugu", addressCountry: "NG" },
+      /* sameAs is how a search engine ties this business to the accounts that
+         claim to be it. Add every new profile here as well as to the footer. */
+      sameAs: ["https://www.instagram.com/getazap"],
+    })} />
 </head>
 <body class="bg-background text-ink antialiased font-sans selection:bg-accent/20 selection:text-ink relative">
-    <Navbar client:load />
+    <Navbar client:load overHero={overHero} />
     <main>
       <slot />
     </main>
-    <Footer />
+    {/* client:idle rather than client:load — the footer's only interactive part
+        is the out-of-area email capture, so it never needs to block first paint.
+        Deliberately not client:visible: that depends on IntersectionObserver,
+        and if it fails to fire the form degrades to a native GET submit that
+        reloads the page and silently loses the lead. client:idle has no such
+        failure mode, and the component is small. */}
+    <Footer client:idle />
 </body>
 </html>

@@ -1,8 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AnimatedLanding from "../components/AnimatedLanding";
+
+/*
+ * The title was "Your Space, Managed." — brand language that says nothing a
+ * search engine or a person scanning tabs can act on.
+ *
+ * It briefly named three trades instead, which was the opposite mistake: AZAP
+ * covers eleven, so listing a few implies the rest are not on offer. "Service
+ * provider" is the category, and it is what the booking form is actually a
+ * front door to.
+ */
 ---
 
-<Layout title="Your Space, Managed.">
+<Layout
+  title="Book a vetted service provider near you today"
+  description="AZAP sends vetted service providers to your door in Enugu — repairs, cleaning, cooking, laundry and more. Free to book, no commission, and you agree the price directly with your pro."
+  overHero
+>
     <AnimatedLanding client:load />
 </Layout>

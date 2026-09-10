@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookingForm from '../components/BookingForm';
+
+/*
+ * Deliberately a single centred column, no side panels.
+ *
+ * A version with a sticky trust sidebar was tried and removed: it competed with
+ * the form for attention on what is only a short two-step flow.
+ *
+ * max-w-4xl rather than the original max-w-2xl so eleven services fit three
+ * across instead of two. The details step narrows itself back to max-w-xl,
+ * because full-width inputs at this container width would be an unpleasant
+ * line length to read or fill in.
+ */
+---
+
+<Layout
+  title="Book a pro"
+  description="Book a vetted professional in Enugu. Free to book. You settle the job price directly with your pro."
+>
+  <section class="px-6 pt-32 pb-24">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-12 text-center">
+        <h1 class="mb-4 text-4xl md:text-5xl">Book a vetted pro.</h1>
+        <p class="mx-auto max-w-lg text-lg font-medium leading-relaxed text-zinc-500">
+          Tell us what you need. We'll call to confirm, then send someone whose ID,
+          bank details and guarantor we've checked.
+        </p>
+      </div>
+
+      <BookingForm client:load />
+    </div>
+  </section>
+</Layout>

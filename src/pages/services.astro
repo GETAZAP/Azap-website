@@ -1,132 +1,116 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero";
+
+/*
+ * Mirrors the eleven services in BookingForm.tsx, in the same two groups and
+ * with the same names. Previously this page gave "Gourmet Cooking" and "Deep
+ * Cleaning" a full-width feature block each, then repeated both as cards, and
+ * folded seven trades into the single word "Handyman" — so a customer who read
+ * "plumbers and generators" on the homepage arrived here and found chefs.
+ *
+ * Claims removed rather than reworded, because nothing backs them: "chefs who
+ * bring the restaurant experience", "professional-grade equipment and
+ * eco-friendly products", "Post-Construction Cleaning", "Move-in / Move-out
+ * Specialists", "background-checked chefs". AZAP vets identity, bank, guarantor
+ * and face. It does not supply equipment or certify specialisms.
+ *
+ * If a service is added here it must be added to BookingForm.tsx and to the
+ * SERVICES set in the web-booking edge function, or the booking is refused
+ * server-side.
+ */
+
+const repairs = [
+  { t: "Plumbing", d: "Leaking taps, blocked drains, burst or split pipes, toilets and cisterns." },
+  { t: "Electrical", d: "Sockets, switches, lighting, and faults on existing wiring." },
+  { t: "Air conditioning", d: "Servicing, gas top-ups, and repairs to split and window units." },
+  { t: "Generator", d: "Servicing, starting faults, and repairs on household generators." },
+  { t: "Appliances", d: "Fridges, freezers, washing machines, cookers and microwaves." },
+  { t: "Carpentry", d: "Doors, locks, wardrobes, shelving and furniture assembly." },
+  { t: "Painting", d: "Interior and exterior painting, touch-ups and preparation." },
+];
+
+const household = [
+  { t: "Cleaning", d: "A one-off clean or a regular visit. Homes, flats and short-lets." },
+  { t: "Cooking", d: "Meal preparation in your own kitchen, including the clear-up." },
+  { t: "Laundry", d: "Washing, drying, folding and ironing." },
+  { t: "Errands", d: "Shopping, collections, drop-offs and other running around." },
+];
 ---
 
-<Layout title="Our Services" description="Gourmet cooking, deep cleaning, handyman, laundry, and errand services from verified professionals.">
-    <PageHero
-        client:load
-        title="Everything your home needs."
-        subtitle="From gourmet meals to childcare and corporate errands, we provide verified professional services at your doorstep."
-        image="/images/cleaning_localized.png"
-    />
+<Layout
+  title="Our Services"
+  description="Plumbing, electrical, AC, generators, appliances, carpentry, painting, cleaning, cooking, laundry and errands in Enugu. Free to book."
+>
+  <PageHero
+    client:load
+    title="What we can send someone for."
+    subtitle="Eleven services in Enugu, from vetted professionals. Free to book, and you agree the price directly with your pro."
+    image="/images/cleaning_localized.jpg"
+  />
 
-    <section class="py-32 px-6">
-        <div class="container-tight !px-0">
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32"
-            >
-                <div>
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">
-                        Gourmet Cooking
-                    </h2>
-                    <p
-                        class="text-zinc-500 text-lg leading-relaxed font-medium mb-8"
-                    >
-                        Our chefs are more than just cooks. They are vetted
-                        professionals who bring the restaurant experience to
-                        your home. We handle meal planning, shopping, and the
-                        cooking, leaving you with a spotless kitchen and a
-                        delicious meal.
-                    </p>
-                    <ul class="space-y-4 font-bold text-sm text-zinc-500">
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Customized Meal Plans
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Fresh Ingredient Sourcing
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Kitchen Cleanup Included
-                        </li>
-                    </ul>
-                </div>
-                <div
-                    class="rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60"
-                >
-                    <img
-                        src="/images/chef_localized.png"
-                        alt="Cooking service"
-                        class="w-full h-full object-cover"
-                    />
-                </div>
-            </div>
+  <section class="px-6 py-24">
+    <div class="container-tight !px-0">
 
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center mb-32"
-            >
-                <div
-                    class="order-2 md:order-1 rounded-3xl overflow-hidden shadow-lg aspect-video border border-zinc-200/60"
-                >
-                    <img
-                        src="/images/cleaning_localized.png"
-                        alt="Cleaning service"
-                        class="w-full h-full object-cover"
-                    />
-                </div>
-                <div class="order-1 md:order-2">
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">
-                        Deep Cleaning
-                    </h2>
-                    <p
-                        class="text-zinc-500 text-lg leading-relaxed font-medium mb-8"
-                    >
-                        A pristine home is the foundation of a managed life. Our
-                        specialists use professional-grade equipment and
-                        eco-friendly products to ensure your home isn't just
-                        tidy, but truly clean.
-                    </p>
-                    <ul class="space-y-4 font-bold text-sm text-zinc-500">
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Recurring or One-time
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Post-Construction Cleaning
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="h-1.5 w-1.5 bg-accent rounded-full"
-                            ></span> Move-in / Move-out Specialists
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {
-                    [
-                        {
-                            t: "Handyman",
-                            d: "Repairs, furniture assembly, and electrical maintenance.",
-                        },
-                        {
-                            t: "Cooking",
-                            d: "Verified, background-checked chefs.",
-                        },
-                        {
-                            t: "Laundry",
-                            d: "Wash, fold, and professional dry cleaning services.",
-                        },
-                        {
-                            t: "Errands",
-                            d: "Logistics, shopping, and specialized personal tasks.",
-                        },
-                    ].map((s) => (
-                        <div class="card-enterprise p-10 group">
-                            <h3 class="text-xl font-extrabold mb-3 tracking-tight group-hover:text-accent transition-colors">
-                                {s.t}
-                            </h3>
-                            <p class="text-zinc-500 font-medium text-sm leading-relaxed">
-                                {s.d}
-                            </p>
-                        </div>
-                    ))
-                }
-            </div>
+      <div class="mb-16">
+        <h2 class="mb-6 text-3xl font-extrabold tracking-tight md:text-4xl">Repairs</h2>
+        <p class="mb-8 max-w-2xl text-lg font-medium leading-relaxed text-zinc-500">
+          Nobody can price a repair honestly before seeing it, so your pro looks at the job
+          and quotes you directly. We never set or take a cut of that price.
+        </p>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {repairs.map((s) => (
+            <a href="/book" class="rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all hover:border-accent hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
+              <span class="block font-bold tracking-tight text-ink">{s.t}</span>
+              <span class="mt-0.5 block text-sm font-medium leading-relaxed text-zinc-500">{s.d}</span>
+            </a>
+          ))}
         </div>
-    </section>
+      </div>
+
+      <div>
+        <h2 class="mb-6 text-3xl font-extrabold tracking-tight md:text-4xl">Household</h2>
+        <p class="mb-8 max-w-2xl text-lg font-medium leading-relaxed text-zinc-500">
+          One-off or regular. Tell us roughly what you need on the call and we'll match you
+          with someone who does that kind of work.
+        </p>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {household.map((s) => (
+            <a href="/book" class="rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all hover:border-accent hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
+              <span class="block font-bold tracking-tight text-ink">{s.t}</span>
+              <span class="mt-0.5 block text-sm font-medium leading-relaxed text-zinc-500">{s.d}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-16 grid gap-6 rounded-3xl border border-zinc-200/80 bg-white p-8 md:grid-cols-3 md:gap-10 md:p-10">
+        <h3 class="text-xl font-extrabold tracking-tight md:text-2xl">Not sure which one you need?</h3>
+        <p class="font-medium leading-relaxed text-zinc-500 md:col-span-2">
+          Pick whichever is closest and describe the problem in your own words. A real person
+          calls you back before anyone is sent, so if it turns out to be a different trade
+          we'll sort it out on the phone rather than sending the wrong person out to you.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section-dark px-6 py-32 text-center">
+    <div class="container-tight max-w-3xl">
+      <h2 class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl">
+        Need one of these today?
+      </h2>
+      <p class="mb-10 text-lg font-medium leading-relaxed text-zinc-400">
+        Booking takes a minute and costs nothing. We'll call you back to confirm
+        before anyone is sent to your door.
+      </p>
+      <div class="flex justify-center">
+        <a
+          href="/book"
+          class="btn-capsule w-fit border-transparent bg-white px-8 py-4 text-base text-ink shadow-md hover:bg-zinc-100"
+        >Book a pro</a>
+      </div>
+    </div>
+  </section>
 </Layout>

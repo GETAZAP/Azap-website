@@ -1,14 +1,50 @@
 @import "tailwindcss";
 
+/* Self-hosted, so the site makes no request to fonts.googleapis.com or
+   fonts.gstatic.com. That removed the only third party present on every page
+   view — Google saw the visitor's IP and referring URL on every request — and
+   with it the one thing on this site that a strict reading of the NDPA (or the
+   2022 Munich Google Fonts ruling) would have wanted a consent prompt for.
+   It also drops two DNS lookups and a render-blocking stylesheet from the
+   critical path. Variable weight 200-800 covers every weight the site uses. */
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+
 @theme {
-  --color-accent: #10B981; /* Enterprise Pronto Green equivalent */
+  /* Brand green. Used for fills, borders, dots, icons and for text on dark
+     backgrounds, where it reaches 7.84:1 against --color-ink. */
+  --color-accent: #10B981;
   --color-accent-hover: #059669;
+
+  /* The same green, dark enough to be read as text on white or #FAFAFA.
+     #10B981 scores 2.54:1 there, well under the 4.5:1 WCAG AA needs, so every
+     accent-coloured word on a light background uses this instead: 5.48:1.
+     Two tokens rather than one darker brand colour, because the bright green
+     is correct everywhere it is not carrying words. */
+  --color-accent-ink: #047857;
+
   --color-background: #FAFAFA;
   --color-ink: #09090B;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
+  /* Nothing on this site is meant to scroll sideways. A single element wider
+     than the viewport — a long unbroken string, a grid that does not wrap, a
+     negative margin — otherwise shifts the whole page and leaves a strip of
+     background down one edge on a phone. Set here rather than per-section so a
+     new page cannot reintroduce it. */
+  html, body {
+    @apply overflow-x-hidden;
+    max-width: 100%;
+  }
+
+  /* Long addresses, emails and references are user-supplied and have no spaces
+     to break at. Without this they are exactly the element that causes the
+     overflow above. */
+  body {
+    overflow-wrap: break-word;
+  }
+
   body {
     @apply bg-background text-ink antialiased selection:bg-accent/20 selection:text-ink;
     letter-spacing: -0.01em;
@@ -30,5 +66,72 @@
   }
   .card-enterprise {
     @apply bg-white border border-zinc-200/80 rounded-3xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden;
+  }
+}
+/* Hero entrance.
+   Deliberately CSS rather than framer-motion: the hero was animated in JS, so
+   its server-rendered HTML carried opacity:0 and the headline, copy and buttons
+   were invisible until React hydrated. On a slow or failed load that leaves a
+   background image and nothing else, which is the worst possible failure for the
+   one screen that has to work on bad connections.
+
+   Base state is visible. The keyframes animate *towards* what is already there,
+   so if animation never runs for any reason, the content simply shows. */
+@keyframes azap-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@layer utilities {
+  .rise {
+    animation: azap-rise 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  }
+  .rise-1 { animation-delay: 0.08s; }
+  .rise-2 { animation-delay: 0.16s; }
+  .rise-3 { animation-delay: 0.24s; }
+  .rise-4 { animation-delay: 0.32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise { animation: none; }
+  }
+}
+
+/* Character flip.
+   Written here rather than pulled from a component registry: the registry
+   version shipped a .tsx that set --flip-* custom properties and no CSS to read
+   them, so it animated nothing, and it wanted a cn() helper, a @/ alias and
+   three dependencies this project does not have. The whole effect is the
+   keyframes below.
+
+   Each character is its own inline-block with a --flip-delay, so the flip
+   staggers across the word. The rotation finishes at 40% and holds, which gives
+   a pause between passes instead of relentless spinning.
+
+   Deliberately not used on the homepage: the hero headline has to render on bad
+   connections, it already carries a .rise entrance, and it is captured into the
+   Open Graph image, where an animating headline would freeze mid-flip. */
+@keyframes azap-flip {
+  0%   { transform: rotateX(0deg); }
+  40%  { transform: rotateX(360deg); }
+  100% { transform: rotateX(360deg); }
+}
+
+@layer utilities {
+  .flip {
+    perspective: 800px;
+    display: inline-block;
+  }
+  .flip-char {
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: azap-flip var(--flip-duration, 3s) cubic-bezier(0.6, 0, 0.2, 1)
+               var(--flip-delay, 0s) infinite;
+  }
+
+  /* The base state is the readable one, so if the animation never runs — reduced
+     motion, an old browser — the characters simply sit there. Same principle as
+     .rise above. */
+  @media (prefers-reduced-motion: reduce) {
+    .flip-char { animation: none; }
   }
 }

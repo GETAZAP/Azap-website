@@ -1,40 +1,101 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
+
+/*
+ * Dates and a waitlist were removed, not reworded.
+ *
+ * This page advertised "Waitlist open" for Lagos and Abuja when nothing on the
+ * site collects a city, and dated them "Coming Q3 2026" and "Coming Q4 2026" —
+ * the first of which had already arrived by the time anyone read it, and the
+ * second of which promised a third city before the first had taken a booking.
+ *
+ * A published date you miss is worse than no date, and this is a page people
+ * check precisely because they want to know when you are coming. So it now says
+ * the honest thing: Enugu, and we will not name a date for the others.
+ *
+ * The out-of-area email capture in the footer is the real mechanism, and it is
+ * on every page including this one.
+ */
+
+const cities = [
+  {
+    name: 'Enugu',
+    status: 'Now serving',
+    live: true,
+    body: 'Independence Layout, GRA, Trans Ekulu and the areas around them. If you are not sure whether we reach you, book anyway and we will tell you on the call.',
+  },
+  {
+    name: 'Lagos',
+    status: 'Not yet',
+    live: false,
+    body: 'We will open Lagos when Enugu is genuinely covered, and not before. We would rather be the reliable option in one city than a thin one in three.',
+  },
+  {
+    name: 'Abuja',
+    status: 'Not yet',
+    live: false,
+    body: 'Same answer as Lagos. When we get there we will say so here, and it will be because we are ready rather than because a date arrived.',
+  },
+];
 ---
 
-<Layout title="Cities" description="AZAP is live in Enugu and expanding to Lagos and Abuja. See where we're launching next.">
-    <PageHero 
-        client:load
-        title="Expanding across Nigeria." 
-        subtitle="We are strategically launching in the most vibrant cities, starting with the heart of the east."
-        image="/images/about_hero.png"
-    />
-    
-    <section class="py-32 px-6">
-        <div class="container-tight !px-0">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="card-enterprise p-10 relative">
-                    <div class="absolute top-6 right-6">
-                        <span class="flex h-2.5 w-2.5 rounded-full bg-accent animate-pulse" />
-                    </div>
-                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Enugu</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Currently onboarding providers in Independence Layout, GRA, and Trans Ekulu.</p>
-                    <span class="text-xs font-extrabold uppercase tracking-widest text-accent">Active Beta</span>
-                </div>
+<Layout
+  title="Where we operate"
+  description="AZAP operates in Enugu. We open one neighbourhood at a time so a vetted pro is always nearby rather than across the city."
+>
+  <PageHero
+    client:load
+    title="Enugu, properly."
+    subtitle="We open one neighbourhood at a time. It is slower, and it is the only way the service is any good when you actually need it."
+  />
 
-                <div class="card-enterprise p-10 opacity-60 hover:opacity-100 transition-opacity duration-500">
-                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Lagos</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Waitlist open for Victoria Island, Ikoyi, and Lekki Phase 1.</p>
-                    <span class="text-xs font-extrabold uppercase tracking-widest text-zinc-400">Coming Q3 2026</span>
-                </div>
+  <section class="px-6 py-24">
+    <div class="container-tight !px-0">
 
-                <div class="card-enterprise p-10 opacity-60 hover:opacity-100 transition-opacity duration-500">
-                    <h3 class="text-3xl font-extrabold mb-4 tracking-tight">Abuja</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Waitlist open for Maitama, Asokoro, and Wuse II.</p>
-                    <span class="text-xs font-extrabold uppercase tracking-widest text-zinc-400">Coming Q4 2026</span>
-                </div>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {cities.map((c) => (
+          <div class={`card-enterprise p-8 md:p-10 ${c.live ? '' : 'bg-zinc-50/60'}`}>
+            <div class="mb-4 flex items-baseline justify-between gap-3">
+              <h2 class="text-3xl font-extrabold tracking-tight">{c.name}</h2>
+              <span class={`text-xs font-extrabold uppercase tracking-widest ${c.live ? 'text-accent-ink' : 'text-zinc-500'}`}>
+                {c.status}
+              </span>
             </div>
+            <p class="text-sm font-medium leading-relaxed text-zinc-500">{c.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-16 grid gap-6 rounded-3xl bg-ink p-8 text-white md:grid-cols-3 md:gap-10 md:p-10">
+        <h2 class="text-xl font-extrabold tracking-tight md:text-2xl">Why one at a time</h2>
+        <div class="md:col-span-2">
+          <p class="font-medium leading-relaxed text-zinc-300">
+            Fifty artisans spread across three cities is nothing. The nearest one is forty
+            minutes away, or there is nobody at all, and you stop bothering with us. The same
+            fifty inside one five-kilometre radius means somebody is ten minutes from your
+            door, every time.
+          </p>
+          <p class="mt-4 font-medium leading-relaxed text-zinc-400">
+            Same fifty people. Completely different service. That is the whole reason we are
+            not in your city yet.
+          </p>
         </div>
-    </section>
+      </div>
+
+      <div class="mt-16 text-center">
+        <p class="mb-6 text-lg font-medium text-zinc-500">
+          In Enugu? You can book right now.
+        </p>
+        <a
+          href="/book"
+          class="btn-capsule mx-auto w-fit border-transparent bg-ink px-8 py-4 text-base text-white shadow-md hover:bg-zinc-800"
+        >Book a pro</a>
+        <p class="mt-6 text-sm font-medium text-zinc-400">
+          Somewhere else? Leave your email at the bottom of this page and we will tell you when we reach you.
+        </p>
+      </div>
+
+    </div>
+  </section>
 </Layout>

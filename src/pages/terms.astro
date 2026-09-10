@@ -1,110 +1,316 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+/*
+ * Sections are defined once and rendered twice — as the contents list and as
+ * the body — so the two cannot drift apart as clauses are added.
+ *
+ * "Last updated" is a constant. It was previously new Date(), which meant the
+ * date advanced on every deploy: a legal document appearing to have been
+ * reviewed when nothing had been read.
+ *
+ * TO BE FILLED IN BEFORE THIS IS RELIED ON:
+ *   - the CAC registration number.
+ *   - a registered office address.
+ *
+ * The contracting entity is AZAP Operations Limited, confirmed by the founders
+ * on 2026-09-09. The footer previously said "AZAP Technologies Inc.", which was
+ * never the registered company and carried a US suffix.
+ *
+ * Not drafted by a lawyer. LAUNCH_CHECKLIST.md carries legal review as an open
+ * P0 alongside NDPC registration and a named DPO.
+ */
+
+const LAST_UPDATED = '9 September 2026';
+
+const sections = [
+  {
+    id: 'about',
+    title: 'Who we are and what these terms cover',
+    body: [
+      'AZAP is a service operated by <strong class="text-ink">AZAP Operations Limited</strong>, a company registered in Nigeria. We introduce people who need work doing in their homes or premises to independent tradespeople and household professionals, and coordinate that work by telephone.',
+      'These terms apply when you book through this website, when you speak to us on the telephone about a booking, and when you use this website generally. By making a booking you accept them. If you do not accept them, please do not book.',
+      'We have written these terms in plain language. Where something is a limitation rather than a promise, we have said so directly instead of burying it.',
+    ],
+  },
+  {
+    id: 'definitions',
+    title: 'Definitions',
+    body: [
+      '<strong class="text-ink">"AZAP", "we", "us", "our"</strong> means AZAP Operations Limited, the company that operates the AZAP service.',
+      '<strong class="text-ink">"You"</strong> means the person making a booking or using this website.',
+      '<strong class="text-ink">"Pro"</strong> means an independent tradesperson or household professional we introduce to you. Pros are not employees, agents or partners of AZAP.',
+      '<strong class="text-ink">"Job"</strong> means the work you and a pro agree they will carry out.',
+      '<strong class="text-ink">"Booking"</strong> means a request you submit asking us to find you a pro.',
+    ],
+  },
+  {
+    id: 'eligibility',
+    title: 'Who can use AZAP',
+    body: [
+      'You must be at least 18 years old and legally able to enter into a contract. If you are booking on behalf of a company, a landlord, an estate or another person, you confirm you are authorised to do so and to give us access details for the property.',
+      'You must be the occupier or owner of the property, or have the occupier or owner\'s permission for the work to be carried out.',
+    ],
+  },
+  {
+    id: 'what-we-do',
+    title: 'What AZAP does, and what it does not do',
+    body: [
+      '<strong class="text-ink">We do:</strong> take your booking, telephone you to confirm the details, find a pro we have checked who is willing and available to take the job, tell you who is coming, and telephone you afterwards to confirm the work was carried out. We keep a record of all of it.',
+      '<strong class="text-ink">We do not:</strong> carry out any work ourselves; employ, supervise, direct or manage the pros; set, negotiate or control the price of any job; supply tools, parts or materials; take payment for any job; hold money on your behalf; or guarantee the quality, timeliness or outcome of any work.',
+      'Pros decide for themselves whether to accept a job we offer them, how to carry it out, and what to charge. That independence is deliberate and it is central to how this service works.',
+    ],
+  },
+  {
+    id: 'where',
+    title: 'Where we operate',
+    body: [
+      'We currently serve Enugu, Nigeria, and we open one area at a time. If your address falls outside the area we cover, we will tell you on the confirmation call rather than send someone who cannot reasonably reach you.',
+      'We may change the areas we serve at any time.',
+    ],
+  },
+  {
+    id: 'booking',
+    title: 'How a booking works',
+    body: [
+      'You submit a booking telling us what you need, where, and roughly when. Submitting a booking costs you nothing and does not commit you to anything.',
+      'A booking is a request, not a confirmed appointment. Nothing is confirmed until we have spoken to you by telephone and told you that a pro is coming. We may be unable to find a pro for a particular job, time or location, and if so we will tell you.',
+      'We may decline or cancel a booking at our discretion, including where we cannot verify the details, where the address is outside our service area, where we have no suitable pro available, or where we believe the request is not genuine.',
+    ],
+  },
+  {
+    id: 'contract',
+    title: 'Who your contract is with',
+    body: [
+      '<strong class="text-ink">Your contract for the work itself is with the pro, not with AZAP.</strong> When you agree a price and a scope of work with a pro, that agreement is between the two of you.',
+      'These terms govern your use of AZAP\'s introduction and coordination service. They do not govern the work, and AZAP is not a party to the agreement you make with your pro.',
+    ],
+  },
+  {
+    id: 'vetting',
+    title: 'What we check about pros, and what we do not',
+    body: [
+      'Before a pro can take work through AZAP we verify four things: their National Identity Number and identity document, a bank account held in their own name, a named guarantor we can contact, and a photograph. We meet pros in person before adding them.',
+      '<strong class="text-ink">These checks establish who somebody is, and that they can be traced and vouched for.</strong> They are not, and should not be treated as, any of the following: a test of trade skill or competence; a professional licence, certification or qualification; a criminal records check; a guarantee of honesty or good conduct; or insurance against anything going wrong.',
+      'We do not supervise pros while they work and we cannot guarantee the standard of any particular job.',
+    ],
+  },
+  {
+    id: 'price',
+    title: 'Price, quotes and changes to a quote',
+    body: [
+      'Your pro quotes you directly, after they have seen the job. AZAP does not set, approve, cap or negotiate that price.',
+      'Repairs are diagnostic by nature: what looks like a worn washer may turn out to be a split pipe. If a pro finds the job is larger than expected, they should stop and tell you before continuing, and you are free to agree a new price, get a second opinion, or decline the extra work.',
+      'You are not obliged to accept a quote. If you do not want to go ahead after a pro has looked at the job, tell them and tell us. We do not charge you for that.',
+    ],
+  },
+  {
+    id: 'payment',
+    title: 'Payment',
+    body: [
+      '<strong class="text-ink">Booking is free. AZAP does not collect payment for jobs, does not hold money on your behalf, and does not add any fee, commission or surcharge to your price.</strong>',
+      '<strong class="text-ink">You pay your pro directly</strong>, in cash or by bank transfer, on the terms the two of you agree. This is how the service is designed to work. It is not a way of avoiding us.',
+      'AZAP charges the pro a fixed fee for each job they accept and complete. That is a matter between AZAP and the pro, it is not deducted from your payment, and it is never added to what you pay.',
+      'We recommend you get a receipt or a written record from your pro. AZAP is not a party to the payment and cannot produce one on their behalf.',
+    ],
+  },
+  {
+    id: 'materials',
+    title: 'Tools, parts and materials',
+    body: [
+      'AZAP does not supply tools, parts, materials, cleaning products or equipment. Pros bring their own tools.',
+      'Where a job needs parts or materials, you and your pro agree who buys them and how they are paid for, in the same way you agree the price of the work. Anything a pro buys on your behalf is a matter between you and them.',
+    ],
+  },
+  {
+    id: 'access',
+    title: 'Access to your property',
+    body: [
+      'You are responsible for providing safe and lawful access to the property at the agreed time, and for making sure someone aged 18 or over is present unless you have agreed otherwise with your pro.',
+      'Please secure or put away valuables, sensitive documents and anything fragile before a pro arrives, and tell them about anything they need to know: a temperamental stopcock, a dog, a room not to enter.',
+      'If nobody is there when your pro arrives, they have made a wasted journey. We may decline to send anyone again if this happens repeatedly.',
+    ],
+  },
+  {
+    id: 'safety',
+    title: 'Health, safety and work a pro may decline',
+    body: [
+      'A pro may refuse to start or continue a job if they believe it is unsafe, beyond their competence, requires a licence or certification they do not hold, or if they feel unsafe or are treated abusively. We support that decision and will not press them to continue.',
+      'Where work requires a licensed professional or a regulatory sign-off, it is your responsibility and your pro\'s to establish that before the work is done. AZAP does not verify licences.',
+    ],
+  },
+  {
+    id: 'cancelling',
+    title: 'Cancelling, rescheduling and no-shows',
+    body: [
+      'You can cancel or reschedule at any time by telling us. <strong class="text-ink">We will not charge you a cancellation fee, because we do not charge you at all.</strong>',
+      'Please give us as much notice as you can. If you cancel after your pro has already set off, they have lost the journey and possibly other work. We would rather explain that to them than leave them at your gate.',
+      'If a pro cancels or does not arrive, tell us and we will try to find you somebody else. We cannot guarantee a replacement at short notice.',
+    ],
+  },
+  {
+    id: 'not-right',
+    title: 'If the work is not right',
+    body: [
+      'Tell us as soon as you can, and tell your pro. Most problems are resolved fastest by the person who did the work coming back to look at it.',
+      'We telephone after every job to check it went well, and we keep a record of who was sent, when they arrived, and what was agreed. That record is available to you.',
+      'Because AZAP is not a party to your agreement with the pro and holds none of your money, we cannot compel a refund or force a pro to return. What we can do is hold the record, raise it with them directly, and stop offering work to anyone who does not put things right. We take that seriously: it is the main sanction we have.',
+    ],
+  },
+  {
+    id: 'damage',
+    title: 'Damage, loss and insurance',
+    body: [
+      '<strong class="text-ink">AZAP does not insure the work, your property, or your possessions.</strong> Pros are independent and may or may not carry their own insurance. We do not verify insurance and you should ask your pro directly if this matters to you.',
+      'If a pro damages something, that is in the first instance a matter between you and them, as it would be with any independent tradesperson. Tell us and we will help: we know who we sent, we have the record, and we can withdraw work from them.',
+      'For high-value property or work with a significant risk of damage, consider checking your own insurance position before the work starts.',
+    ],
+  },
+  {
+    id: 'complaints',
+    title: 'Complaints and disputes',
+    body: [
+      'Raise a complaint with us at <a href="mailto:disputes@getazap.com" class="font-bold text-accent-ink hover:underline">disputes@getazap.com</a>, or anything about money at <a href="mailto:refunds@getazap.com" class="font-bold text-accent-ink hover:underline">refunds@getazap.com</a>. Tell us the booking reference if you have it.',
+      'We aim to acknowledge complaints within two working days and to tell you what we have been able to establish within ten. Where a dispute is between you and your pro, our role is to provide the record, put the question to them, and tell you honestly what they say.',
+      'Nothing in these terms prevents you from pursuing any legal remedy available to you.',
+    ],
+  },
+  {
+    id: 'your-responsibilities',
+    title: 'What we ask of you',
+    body: [
+      'Give us accurate details, including a phone number you will answer. Be there at the time you agreed. Treat the pro we send with courtesy.',
+      'Do not use our booking form or contact form to send abuse, false bookings, spam, or anything unlawful, and do not submit somebody else\'s details without their knowledge.',
+      'Do not ask a pro to carry out work that is unlawful, unsafe, or that requires a licence they do not hold.',
+    ],
+  },
+  {
+    id: 'website-use',
+    title: 'Using this website',
+    body: [
+      'You may use this website for its intended purpose. You may not attempt to gain unauthorised access to it or to any system behind it, interfere with its operation, scrape or harvest data from it, or use automated means to submit bookings.',
+      'The content, design, text, graphics and logo on this website belong to AZAP and may not be copied or reused without our permission.',
+      'This website may link to third-party sites. We are not responsible for their content or their practices.',
+    ],
+  },
+  {
+    id: 'suspension',
+    title: 'Refusing or withdrawing service',
+    body: [
+      'We may decline a booking, refuse to serve you, or stop serving you where you have breached these terms, where we believe a request is not genuine, where a pro has been treated abusively, or where continuing would put somebody at risk.',
+      'We will tell you if we do this, and why, unless there is a good reason not to.',
+    ],
+  },
+  {
+    id: 'no-employment',
+    title: 'No employment or agency relationship',
+    body: [
+      'Nothing in these terms creates an employment relationship, partnership, joint venture or agency between AZAP and any pro, or between you and AZAP.',
+      'Pros are independent. They choose which jobs to accept, set their own prices, use their own tools, decide how to carry out the work, and are free to work for anyone else, including directly for you.',
+    ],
+  },
+  {
+    id: 'feedback',
+    title: 'Feedback',
+    body: [
+      'If you tell us how a job went, we may use that to decide whether to keep offering work to a pro. We may quote feedback publicly only with your permission, and never in a way that identifies your address.',
+    ],
+  },
+  {
+    id: 'liability',
+    title: 'Our liability',
+    body: [
+      '<strong class="text-ink">We are responsible for</strong> carrying out the introduction and coordination service described here with reasonable care: verifying the four checks before a pro takes work, telling you honestly who is coming, and keeping an accurate record of the booking.',
+      '<strong class="text-ink">We are not responsible for</strong> the work itself, which is carried out by an independent professional under an agreement you made with them; for the acts or omissions of any pro; for delays or failures caused by a pro; or for any loss arising from work we did not perform.',
+      'To the fullest extent the law allows, AZAP is not liable for indirect, incidental, special or consequential loss, or for loss of profit, income or opportunity, arising from your use of the service or from any job.',
+      'Nothing in these terms excludes or limits any liability that cannot lawfully be excluded or limited, including liability for death or personal injury caused by our negligence, or for fraud.',
+    ],
+  },
+  {
+    id: 'force-majeure',
+    title: 'Things outside our control',
+    body: [
+      'We are not liable for failing to provide the service where this is caused by something beyond our reasonable control, including power or network failure, fuel shortage, civil disturbance, flooding, strike action, or government restriction.',
+    ],
+  },
+  {
+    id: 'changes',
+    title: 'Changes to the service and to these terms',
+    body: [
+      'We may change or discontinue any part of the service. We may also amend these terms. The date at the top of this page is the date of the last real amendment, not the date the page was last published.',
+      'Material changes will be posted here before they take effect. Continuing to use AZAP after a change means you accept the amended terms.',
+    ],
+  },
+  {
+    id: 'notices',
+    title: 'How we contact you',
+    body: [
+      'We will normally contact you by telephone, because that is how this service runs. We may also send a text message or use WhatsApp on the number you give us, and email you if you have given us an address.',
+      'These messages are about your booking. They are not marketing, and we do not need your consent to send them, though you can ask us to use a different method.',
+    ],
+  },
+  {
+    id: 'general',
+    title: 'General',
+    body: [
+      'If any part of these terms is found to be unenforceable, the rest continues to apply.',
+      'If we do not enforce a right immediately, that does not mean we have given it up.',
+      'You may not transfer your rights under these terms to anyone else. We may transfer ours in connection with a sale or reorganisation of the business, and this will not reduce your rights.',
+      'These terms are the whole agreement between you and AZAP about the use of our service.',
+    ],
+  },
+  {
+    id: 'law',
+    title: 'Governing law',
+    body: [
+      'These terms, and any dispute arising from them, are governed by the laws of the Federal Republic of Nigeria and subject to the jurisdiction of the Nigerian courts.',
+    ],
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    body: [
+      'General questions: <a href="mailto:support@getazap.com" class="font-bold text-accent-ink hover:underline">support@getazap.com</a>',
+      'Complaints and disputes: <a href="mailto:disputes@getazap.com" class="font-bold text-accent-ink hover:underline">disputes@getazap.com</a>',
+      'Money and refunds: <a href="mailto:refunds@getazap.com" class="font-bold text-accent-ink hover:underline">refunds@getazap.com</a>',
+      'Anything about these terms: <a href="mailto:admin@getazap.com" class="font-bold text-accent-ink hover:underline">admin@getazap.com</a>',
+      'You can also reach us through our <a href="/contact" class="font-bold text-accent-ink hover:underline">contact page</a>.',
+    ],
+  },
+];
 ---
 
-<Layout title="Terms of Service" description="The terms governing your access to and use of the AZAP platform and services.">
-    <section class="pt-40 pb-32 px-6">
-        <div class="container-tight max-w-3xl !px-0">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-12">Terms of Service.</h1>
-            <div class="space-y-10 text-zinc-500 font-medium leading-relaxed">
-                <p>
-                    Last updated: {
-                        new Date().toLocaleDateString("en-US", {
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
-                        })
-                    }
-                </p>
-                <p>
-                    Welcome to AZAP. These Terms of Service ("Terms") govern your access to and use of our platform, application, and services. By accessing or using AZAP, you agree to be bound by these Terms.
-                </p>
+<Layout title="Terms of Service" description="The terms governing your use of AZAP in Enugu, Nigeria.">
+  <section class="px-6 pt-40 pb-32">
+    <div class="container-tight !px-0 max-w-3xl">
+      <h1 class="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">Terms of Service.</h1>
+      <p class="mb-10 text-sm font-bold uppercase tracking-widest text-zinc-600">
+        Last updated: {LAST_UPDATED}
+      </p>
 
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        1. Description of Service
-                    </h2>
-                    <p>
-                        AZAP provides a technology platform that connects individuals or businesses seeking home services (such as cooking, cleaning, and handyman services) with vetted, independent service professionals ("Providers"). AZAP itself does not provide these services directly but facilitates the booking, coordination, and payment for them.
-                    </p>
-                </div>
+      <div class="mb-14 rounded-3xl border border-zinc-200/80 bg-white p-8">
+        <p class="mb-5 text-xs font-bold uppercase tracking-widest text-zinc-600">Contents</p>
+        <!-- CSS columns rather than a grid: a grid flows left-to-right, so a
+             numbered contents list would read 1, 2 across the page instead of
+             running 1..n down the first column. -->
+        <ol class="gap-x-8 sm:columns-2">
+          {sections.map((s, i) => (
+            <li class="mb-2 flex break-inside-avoid gap-3 text-sm font-medium leading-snug">
+              <span class="tabular-nums text-zinc-300">{i + 1}.</span>
+              <a href={`#${s.id}`} class="text-zinc-600 underline-offset-4 hover:text-ink hover:underline">{s.title}</a>
+            </li>
+          ))}
+        </ol>
+      </div>
 
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        2. User Accounts & Responsibilities
-                    </h2>
-                    <p>
-                        To use AZAP, you must create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to provide accurate, current, and complete information during registration and to update it as necessary.
-                    </p>
-                </div>
-                
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        3. Vetting & Verification
-                    </h2>
-                    <p>
-                        While we thoroughly vet all Providers on our platform through skill audits and background checks, AZAP acts solely as an intermediary. We mandate a strict PINCode and geolocation verification system to confirm the arrival and departure of Providers, mitigating risk and ensuring accountability for every booking.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        4. Payments & Billing
-                    </h2>
-                    <p>
-                        All payments for services are handled securely through our platform. You agree to pay the flat-rate fees displayed at the time of booking. By providing a payment method, you authorize us to charge you for all services requested and completed through your account.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        5. Cancellations & Refunds
-                    </h2>
-                    <p>
-                        Cancellations must be made in accordance with our cancellation policy. Generally, cancellations made within 24 hours of a scheduled service may incur a cancellation fee. Refunds are handled on a case-by-case basis depending on the circumstances of the cancellation or dispute.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        6. Limitation of Liability
-                    </h2>
-                    <p>
-                        To the maximum extent permitted by law, AZAP shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of the platform or the services rendered by independent Providers. Your use of the service is at your sole risk.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        7. Prohibited Conduct
-                    </h2>
-                    <p>
-                        You agree not to use the platform for any unlawful purpose, to bypass our booking system by paying Providers directly off-platform, or to harass, abuse, or harm any Provider or AZAP employee.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        8. Governing Law
-                    </h2>
-                    <p>
-                        These Terms shall be governed by and construed in accordance with the laws of the Federal Republic of Nigeria, without regard to its conflict of law principles.
-                    </p>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-extrabold text-ink mb-3">
-                        9. Contact Us
-                    </h2>
-                    <p>
-                        If you have any questions or concerns about these Terms, please contact us at <a
-                            href="mailto:admin@getazap.com"
-                            class="text-accent font-bold hover:underline"
-                            >admin@getazap.com</a
-                        > or via our Contact page.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="space-y-10 font-medium leading-relaxed text-zinc-500">
+        {sections.map((s, i) => (
+          <div id={s.id} class="scroll-mt-28">
+            <h2 class="mb-3 text-xl font-extrabold text-ink">{i + 1}. {s.title}</h2>
+            {s.body.map((p) => <p class="mb-3 last:mb-0" set:html={p} />)}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 </Layout>

@@ -1,112 +1,102 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero";
+
+/*
+ * Rewritten to describe the flow that actually runs.
+ *
+ * This page previously described the mobile app: "Book in the App", push
+ * notifications tracking your provider, and a 4-digit PIN check-in. The app is
+ * not in the stores, so none of that is available to anyone reading this page.
+ * Bookings are taken here and dispatched by a person on the phone.
+ *
+ * The PIN and live tracking come back when the app ships — at which point this
+ * page gets a fourth step, not a rewrite.
+ */
 ---
 
-<Layout title="How it Works" description="Book in the app, get real-time status updates, and confirm your provider with a secure PIN code check-in.">
-    <PageHero
-        client:load
-        title="Simple. Secure. Native."
-        subtitle="Managing your home has never been this effortless. Here's how we ensure a premium experience every time."
-    />
+<Layout
+  title="How it Works"
+  description="Book free in a minute. We call you back to confirm, then send a vetted pro. You agree the price directly with them."
+>
+  <PageHero
+    client:load
+    title="Book. We call. Done."
+    subtitle="No app to install and nothing to pay us. A real person confirms every job before anyone is sent to your door."
+  />
 
-    <section class="py-32 px-6">
-        <div class="container-tight !px-0">
-            <div class="space-y-24">
-                <div class="flex flex-col md:flex-row gap-12 items-start">
-                    <div
-                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
-                    >
-                        01
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
-                            Book in the App
-                        </h2>
-                        <p
-                            class="text-lg text-zinc-500 font-medium leading-relaxed mb-6"
-                        >
-                            Sign in with Google, Apple, or your phone number.
-                            Select your service, set your location, and choose
-                            a verified provider in under 60 seconds.
-                        </p>
+  <section class="py-32 px-6">
+    <div class="container-tight !px-0">
+      <div class="space-y-24">
 
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-12 items-start">
-                    <div
-                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
-                    >
-                        02
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
-                            Real-Time Notifications
-                        </h2>
-                        <p
-                            class="text-lg text-zinc-500 font-medium leading-relaxed mb-6"
-                        >
-                            From confirmation to completion, every milestone is
-                            sent straight to your phone, so you always know
-                            exactly where your provider is.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            {
-                                [
-                                    "CONFIRMED",
-                                    "EN ROUTE",
-                                    "ARRIVED",
-                                    "COMPLETED",
-                                ].map((status) => (
-                                    <div class="px-4 py-2 bg-ink text-white text-[10px] font-extrabold uppercase tracking-widest rounded-full">
-                                        {status}
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-12 items-start">
-                    <div
-                        class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none"
-                    >
-                        03
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-extrabold tracking-tight mb-4">
-                            Pin Check-in
-                        </h2>
-                        <p
-                            class="text-lg text-zinc-500 font-medium leading-relaxed"
-                        >
-                            Your artisan provides a 4-digit PINCode to confirm
-                            their arrival. This creates an irrefutable,
-                            timestamped attendance record for total security.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 px-6 section-dark text-center">
-        <div class="container-tight max-w-3xl">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-                Built for the real world.
-            </h2>
-            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">
-                Works on any phone. Works on slow data. Designed for the
-                Nigerian context.
+        <div class="flex flex-col md:flex-row gap-12 items-start">
+          <div class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none">01</div>
+          <div>
+            <h2 class="text-3xl font-extrabold tracking-tight mb-4">Tell us what you need</h2>
+            <p class="text-lg text-zinc-500 font-medium leading-relaxed mb-6">
+              Pick a service, give us the address, and add a few words about the job.
+              It takes about a minute. No account, no download, and nothing to pay.
             </p>
-            <div class="flex justify-center mt-10">
-                <a
-                    href="/contact"
-                    class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 w-fit px-8 py-4 text-base shadow-md"
-                    >Register Now</a
-                >
-            </div>
+            <a href="/book" class="btn-capsule bg-ink text-white border-transparent hover:bg-zinc-800 w-fit px-7">Book a pro</a>
+          </div>
         </div>
-    </section>
+
+        <div class="flex flex-col md:flex-row gap-12 items-start">
+          <div class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none">02</div>
+          <div>
+            <h2 class="text-3xl font-extrabold tracking-tight mb-4">We call you back</h2>
+            <p class="text-lg text-zinc-500 font-medium leading-relaxed mb-6">
+              Someone from AZAP rings you to check the details and understand the job,
+              then finds a vetted pro who can take it. You'll know who is coming and
+              roughly when before anybody sets off.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-12 items-start">
+          <div class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none">03</div>
+          <div>
+            <h2 class="text-3xl font-extrabold tracking-tight mb-4">Agree the price, get it done</h2>
+            <p class="text-lg text-zinc-500 font-medium leading-relaxed">
+              Your pro looks at the job and quotes you directly. That matters, because
+              nobody can honestly price a leak before seeing it. You settle with them, in
+              cash or by transfer. <strong class="text-ink">AZAP takes no cut of that
+              money and adds nothing to it.</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-12 items-start">
+          <div class="text-7xl font-extrabold text-zinc-200 shrink-0 leading-none">04</div>
+          <div>
+            <h2 class="text-3xl font-extrabold tracking-tight mb-4">We check it went well</h2>
+            <p class="text-lg text-zinc-500 font-medium leading-relaxed">
+              We ring you afterwards to confirm the work was done and that you were happy
+              with it. If something went wrong, you have a real person to tell. That is
+              the thing you don't get when you find someone through a WhatsApp group.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-6 section-dark text-center">
+    <div class="container-tight max-w-3xl">
+      <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
+        Built for the real world.
+      </h2>
+      <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">
+        Works on any phone, on slow data, with no app to install. Currently serving
+        Enugu, one neighbourhood at a time, because a pro twenty minutes away is
+        worth more than a thousand spread across the country.
+      </p>
+      <div class="flex justify-center mt-10">
+        <a href="/book" class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 w-fit px-8 py-4 text-base shadow-md">
+          Book a pro
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>
