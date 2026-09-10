@@ -7,6 +7,70 @@ database live in the `Azap` repository and are logged there.
 
 ---
 
+## [2026-09-10] — Shipped to production
+
+The website branch was merged to `master` and Vercel deployed it. This is the
+first time any of this session's work has been public.
+
+### Vercel preview origins
+
+A booking submitted from a preview deployment failed with `forbidden_origin`, so
+the one flow that most needs checking before a merge could not be checked.
+
+Deliberately **not** a `*.vercel.app` suffix test: anyone can deploy anything to
+vercel.app in thirty seconds, so that would have handed the endpoint to the whole
+internet while looking like a restriction. Both ends of the hostname are pinned
+instead — project name at the front, team slug at the end. `corsHeaders()` now
+echoes the matched origin rather than falling back to the first entry, or the
+browser would reject the response to a request that had already passed.
+
+Eleven patterns were checked against the expression before deploying, then
+against production afterwards:
+
+| origin | result |
+|---|---|
+| `www.getazap.com` | 200, own ACAO |
+| `azap-website-<hash>-admin-…-projects.vercel.app` | 200, own ACAO |
+| `azap-website-git-<branch>-admin-…-projects.vercel.app` | 200, own ACAO |
+| `evil-admin-56668191s-projects.vercel.app` | ACAO `www.getazap.com`, browser refuses; POST 403 |
+| `azap-website-attacker.vercel.app` | ACAO `www.getazap.com`, browser refuses; POST 403 |
+
+### Live and verified
+
+The environment variables were set on Vercel before the merge, so the build
+picked them up. Confirmed by reading the deployed bundles rather than the
+dashboard:
+
+- `BookingForm` posts to the **production** function
+- `ContactForm` carries a Web3Forms key — the live site had never had one
+
+Response headers now carry CSP `frame-ancestors`, COOP, Permissions-Policy,
+Referrer-Policy, X-Content-Type-Options, X-Frame-Options and HSTS. Before this
+deploy the site sent HSTS alone.
+
+`/favicon.ico`, `/favicon-32x32.png`, `/apple-touch-icon.png`,
+`/site.webmanifest` and `/images/og.jpg` all serve 200 with correct content
+types. `/404` returns a real 404 status with the rebuilt page.
+
+Nothing in the live homepage HTML reaches a third party on load. The only
+external hosts named anywhere are the booking endpoint and Web3Forms, both in
+`connect-src` and both only contacted on submit, and the Instagram href.
+
+End to end: a POST to the endpoint the live bundle actually names, from the
+production origin, returned `{"ok":true}`. Run with the honeypot set on purpose,
+so the full request path was exercised while writing no row and sending no
+email. `concierge_bookings` still reads 0 in production.
+
+### Still open
+
+- No CAC number, registered office address or named DPO in the legal pages.
+- Team bios are a line short.
+- Preview deployments will need `PUBLIC_BOOKING_ENDPOINT` set for the Preview
+  environment before a booking can be tested from one, and it should point at
+  **staging** so preview bookings never write to production.
+
+---
+
 ## [2026-09-10] — Instagram link in the footer
 
 AZAP has one social account, so the footer now carries one link rather than a
