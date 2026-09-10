@@ -3,27 +3,32 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
 ---
 
-<Layout title="Verification" description="Our 5-stage provider verification pipeline: phone OTP, NIN, BVN and bank match, guarantors, and face liveness.">
+<Layout title="Verification" description="The four checks every AZAP pro passes before they can take a job: identity, bank account, guarantor and photograph.">
     <PageHero 
         client:load
-        title="Identity, Verified." 
-        subtitle="Our 5-stage sequential verification pipeline is designed to eliminate risk and build irrefutable trust."
-        image="/images/nfc_localized.png"
+        title="Who we send you."
+        subtitle="Four checks, every one completed and approved, before anybody can take a job."
+        image="/images/nfc_localized.jpg"
     />
     
     <section class="py-32 px-6">
         <div class="container-tight !px-0 max-w-3xl space-y-16">
             {[
-              { n: '01', t: 'Phone OTP', d: 'Confirms a real Nigerian phone number via SMS OTP. This is the baseline requirement for creating an account.' },
-              { n: '02', t: 'NIN Verification', d: "We verify the provider's 11-digit NIN against NIMC databases to confirm their full name, date of birth, and linked photo." },
-              { n: '03', t: 'BVN + Bank Match', d: 'Cross-checking BVN and bank account names ensures that the person receiving payment is the same person verified by the NIN.' },
-              { n: '04', t: 'Guarantor System', d: 'Every provider must submit two verified guarantors who confirm their character and address via WhatsApp.' },
-              { n: '05', t: 'Face Liveness Check', d: 'A real-time selfie check prevents identity fraud and ensures the person at your door is the one on the profile.' },
+              /* Four stages, not five, and described as they actually run.
+                 This page previously claimed NIN verification "against NIMC
+                 databases", BVN and bank-name cross-matching, two guarantors and
+                 a face liveness check. None of that automated infrastructure
+                 exists: NIN checks require a NIMC-licensed agent we have not
+                 appointed, and every stage here is reviewed by a human. */
+              { n: '01', t: 'Identity', d: 'We collect the National Identity Number and the identity document itself, and check the name and photograph against everything else we hold.' },
+              { n: '02', t: 'Bank account', d: 'An account in the pro\'s own name, so there is a traceable place their money goes and a real institution that has already identified them.' },
+              { n: '03', t: 'Guarantor', d: 'A named, contactable person who vouches for the pro and stakes their own name on it. Culturally this is the strongest of the four.' },
+              { n: '04', t: 'Photograph', d: 'So the person who knocks on your door is the person on the identity document.' },
             ].map(step => (
                 <div class="flex flex-col md:flex-row gap-8 items-start">
                     <div class="text-6xl font-extrabold text-zinc-200 shrink-0 leading-none">{step.n}</div>
                     <div>
-                        <h3 class="text-2xl font-extrabold mb-2 tracking-tight">{step.t}</h3>
+                        <h2 class="text-2xl font-extrabold mb-2 tracking-tight">{step.t}</h2>
                         <p class="text-zinc-500 text-base leading-relaxed font-medium">{step.d}</p>
                     </div>
                 </div>
@@ -33,12 +38,8 @@ import PageHero from '../components/PageHero';
 
     <section class="py-32 px-6 section-dark text-center">
         <div class="container-tight max-w-3xl">
-            <h2 class="text-4xl font-extrabold tracking-tight mb-6">The Verified Badge.</h2>
-            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">Providers who complete all 5 stages receive the AZAP Verified badge, granting them full platform access and B2B eligibility.</p>
-            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full text-white font-extrabold text-sm uppercase tracking-widest">
-                <span>AZAP VERIFIED</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
+            <h2 class="text-4xl font-extrabold tracking-tight mb-6">No checks, no jobs.</h2>
+            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">A pro can only take work once all four checks have passed and an admin has approved each one. Until then they cannot see a single job.</p>
         </div>
     </section>
 </Layout>

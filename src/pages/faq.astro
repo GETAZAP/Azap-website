@@ -7,7 +7,7 @@ import PageHero from '../components/PageHero';
     <PageHero 
         client:load
         title="Common Questions." 
-        subtitle="Everything you need to know about booking, security protocols, and managing your services."
+        subtitle="Booking, pricing, vetting, and what happens if something goes wrong."
     />
     
     <section class="py-24 px-6">
@@ -15,32 +15,44 @@ import PageHero from '../components/PageHero';
             <div class="space-y-8">
                 {[
                   {
-                    q: "How fast can I get a provider?",
-                    a: "For instant bookings, our system automatically routes the nearest available provider to your location. Typically, a verified professional arrives at your door within 15 to 20 minutes of request confirmation."
+                    q: "How much does it cost to book?",
+                    a: "Nothing. Booking is free and AZAP adds nothing to your bill. You agree a price directly with your pro and pay them directly. We take no commission on the job, so nobody has to inflate their quote to cover us."
                   },
                   {
-                    q: "How do you vet your providers?",
-                    a: "Every provider undergoes a mandatory 5-stage verification pipeline: phone OTP, NIN verification against the government NIMC database, BVN and bank account matching, a two-guarantor check, and a live face liveness check. Providers who complete all 5 stages receive the AZAP Verified badge."
+                    q: "How fast can I get a pro?",
+                    a: "We aim to call you back within 15 minutes of your booking, and we\u2019ll tell you honestly on that call when someone can reach you. Arrival time depends on the job and who is free. We would rather give you a real time than a promise we cannot keep."
                   },
                   {
-                    q: "What happens if I need to reschedule?",
-                    a: "You can reschedule directly in the app at any time. Note that cancellations made within 24 hours of your scheduled start time may incur a standard cancellation fee to compensate the dispatched provider."
+                    q: "How do you vet your pros?",
+                    a: "Four checks before anyone can take a job: their National Identity Number with the document, a bank account in their own name, a named guarantor we contact by phone, and a photograph so you know who is arriving. We also meet every pro in person before adding them."
                   },
                   {
-                    q: "How does the PIN code check-in work?",
-                    a: "Your provider shares a unique 4-digit PINCode with you upon arrival, which you confirm in the app. This immediately creates a non-repudiable, GPS-backed record of entry for your security logs."
+                    q: "How do I pay?",
+                    a: "Directly to your pro, in cash or by bank transfer, once the work is done. AZAP never holds your money and never takes a cut of it. You pay exactly what you agreed with them, and nothing to us."
                   },
                   {
-                    q: "Are chemicals and equipment included?",
-                    a: "Yes. For standard and deep cleaning services, our providers bring enterprise-grade sanitization gear and cleaning materials. You don't need to supply anything unless you have specific material preferences."
+                    q: "Who decides the price?",
+                    a: "You and your pro do. They look at the job and quote you. That matters, because nobody can honestly price a leak before seeing it. If you are not happy with the quote you are free to say no, and it costs you nothing."
                   },
                   {
-                    q: "How do I pay for the service?",
-                    a: "All transactions are secured digitally within the AZAP ecosystem. No cash is exchanged at the door. We hold the authorized payment and only release funds once completion is cryptographically logged by the provider."
+                    q: "What if I need to cancel or reschedule?",
+                    a: "Call or message us and we will sort it. There is no cancellation fee. If you cancel after a pro has already set off, please let us know as soon as you can, because they have made the journey."
+                  },
+                  {
+                    q: "What if something goes wrong?",
+                    a: "Tell us. We call every customer after the job to check it went well, and we keep a record of every booking: who was sent, when they arrived, and what was agreed. If there is a problem you have a real person to take it up with. That is the thing you do not get finding someone through a WhatsApp group."
+                  },
+                  {
+                    q: "Where do you operate?",
+                    a: "Enugu, for now. We open one neighbourhood at a time on purpose: a vetted pro twenty minutes away is worth more than a thousand spread thinly across the country. If you are somewhere else, leave your email on our homepage and we will tell you when we reach you."
+                  },
+                  {
+                    q: "Do I need the app?",
+                    a: "No. Everything happens through this website and a phone call. The AZAP app is coming, and when it does you will be able to track your pro on a map and confirm arrival with a PIN, but nothing about booking today depends on it."
                   }
                 ].map(faq => (
                     <div class="card-enterprise p-10 group">
-                        <h3 class="text-xl font-extrabold mb-3 tracking-tight text-ink group-hover:text-accent transition-colors">{faq.q}</h3>
+                        <h2 class="text-xl font-extrabold mb-3 tracking-tight text-ink group-hover:text-accent-ink transition-colors">{faq.q}</h2>
                         <p class="text-zinc-500 font-medium text-base leading-relaxed">{faq.a}</p>
                     </div>
                 ))}

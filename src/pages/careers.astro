@@ -1,76 +1,195 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
+
+/*
+ * The listing is driven entirely by the `roles` array below. Add an entry and
+ * the row, the department grouping and the filters all appear; leave it empty
+ * and the page falls back to an honest "nothing open" state. Nothing else needs
+ * touching to open a vacancy.
+ *
+ * AZAP is not hiring today, so the array is empty on purpose. The structure is
+ * here so the page is designed and ready rather than built in a hurry on the day
+ * a role opens.
+ *
+ * Filters render only once there is more than one department to filter by.
+ * Category pills over an empty list, or over two roles, are decoration
+ * pretending to be a control.
+ *
+ * Not reinstated from the old page, deliberately: "work alongside ex-founders,
+ * deep tech engineers, and operational heavyweights" (untrue), a culture section
+ * describing evaluation policy at a company with no employees, and a
+ * testimonial — the reference design has one, but AZAP has no employees to quote
+ * and we are not inventing another one.
+ *
+ * There is no careers@ mailbox. Applications go to admin@getazap.com.
+ */
+
+interface Role {
+  title: string;
+  department: string;
+  blurb: string;
+  location: string;
+  type: string;
+}
+
+/* When hiring, add roles here and the rest of the page follows. For example:
+     {
+       title: 'Operations Lead',
+       department: 'Operations',
+       blurb: 'Run dispatch day to day and grow the artisan network in Enugu.',
+       location: 'Enugu, on site',
+       type: 'Full-time',
+     },
+*/
+const roles: Role[] = [];
+
+const departments = [...new Set(roles.map((r) => r.department))];
+const showFilters = departments.length > 1;
+
+const applyHref = (title: string) =>
+  `mailto:admin@getazap.com?subject=${encodeURIComponent(`Application — ${title}`)}`;
+
+const joining = [
+  {
+    t: 'It is early',
+    d: 'Whoever joins next will shape how this works rather than inherit it, which is either the appeal or the reason to wait.',
+  },
+  {
+    t: 'The problem is physical',
+    d: 'A tap either stops leaking or it does not. The work is dispatching real people to real houses in Enugu, and it is judged by whether that went well.',
+  },
+  {
+    t: 'You would work with the founders',
+    d: 'There is no layer in between, because there is nobody in between. That means direct answers, and it means the unglamorous parts land on you too.',
+  },
+];
 ---
 
-<Layout title="Careers" description="Join the AZAP team building the operating system for the modern Nigerian household.">
-    <PageHero 
-        client:load
-        title="Join the core team." 
-        subtitle="Help us build the ultimate operational operating system for the modern African household."
-    />
-    
-    <section class="py-24 px-6 bg-white">
-        <div class="container-tight !px-0">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
-                        High Impact
-                    </h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
-                        Every line of code and operational process you build directly improves the daily lives of families and service providers.
-                    </p>
-                </div>
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
-                        Autonomy
-                    </h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
-                        We don't micromanage. You own your domain, set your own cadence, and are evaluated entirely on the outcomes you generate.
-                    </p>
-                </div>
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">
-                        Top-Tier Network
-                    </h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed">
-                        Work alongside ex-founders, deep tech engineers, and operational heavyweights solving hard physical-world problems.
-                    </p>
-                </div>
-            </div>
+<Layout
+  title="Careers"
+  description="Roles at AZAP in Enugu. We are not hiring right now; when that changes, openings are listed here."
+>
+  <PageHero
+    client:load
+    title="Be part of it."
+    subtitle="We're building the shortest route between a good artisan and someone who needs one. When roles open, they are listed here first."
+  />
 
-            <div class="mb-12">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Open Roles</h2>
-                <p class="text-zinc-500 text-lg font-medium">View active engineering, operational, and corporate vacancies.</p>
-            </div>
+  <section class="px-6 pb-24">
+    <div class="container-tight !px-0">
 
-            {/* EMPTY STATE / NO ACTIVE ROLES */}
-            <div class="border-2 border-dashed border-zinc-200 rounded-3xl p-16 text-center flex flex-col items-center justify-center bg-zinc-50/50">
-                <div class="h-16 w-16 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400 mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
-                </div>
-                <h3 class="text-xl font-extrabold text-ink mb-2">No active openings.</h3>
-                <p class="text-zinc-500 font-medium max-w-md leading-relaxed mb-8">We are not currently hiring for internal corporate positions. Follow our social channels to be notified when fresh nodes open up.</p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Design</span>
-                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Engineering</span>
-                    <span class="px-4 py-2 bg-white border border-zinc-200 text-zinc-400 text-xs font-extrabold uppercase tracking-widest rounded-full">Operations</span>
-                </div>
-            </div>
+      {showFilters && (
+        <div class="mb-10 flex flex-wrap gap-2">
+          <button type="button" data-filter="all" aria-pressed="true"
+            class="filter-pill btn-capsule border-transparent bg-ink !px-5 !py-2.5 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
+            View all
+          </button>
+          {departments.map((d) => (
+            <button type="button" data-filter={d} aria-pressed="false"
+              class="filter-pill btn-capsule border-zinc-200 bg-white !px-5 !py-2.5 text-zinc-600 hover:border-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
+              {d}
+            </button>
+          ))}
         </div>
-    </section>
+      )}
 
-    <section class="py-32 px-6 section-dark text-center">
-        <div class="container-tight max-w-2xl">
-            <h3 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">Speculative Applications</h3>
-            <p class="text-zinc-400 font-medium text-lg leading-relaxed mb-10">If you're exceptional and don't see a role that fits, send a concise outline of how you'd impact AZAP to our talent repository.</p>
-            <div class="flex justify-center">
-                <a
-                    href="mailto:careers@getazap.com"
-                    class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 w-fit px-8 py-4 text-base shadow-md font-bold"
-                    >careers@getazap.com</a
-                >
+      {roles.length > 0 ? (
+        <div>
+          {departments.map((dept) => (
+            <div class="role-group mb-12 last:mb-0" data-dept={dept}>
+              <h2 class="mb-5 text-xs font-bold uppercase tracking-widest text-zinc-400">{dept}</h2>
+              <div class="border-t border-zinc-200">
+                {roles.filter((r) => r.department === dept).map((r) => (
+                  <div class="flex flex-col gap-4 border-b border-zinc-200 py-7 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+                    <div class="min-w-0">
+                      <h3 class="mb-1.5 text-xl font-extrabold tracking-tight text-ink md:text-2xl">{r.title}</h3>
+                      <p class="mb-4 font-medium leading-relaxed text-zinc-500">{r.blurb}</p>
+                      <div class="flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-bold text-zinc-600">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-zinc-400" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                          {r.location}
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-bold text-zinc-600">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-zinc-400" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                          {r.type}
+                        </span>
+                      </div>
+                    </div>
+                    <a href={applyHref(r.title)} aria-label={`Apply for ${r.title}`}
+                      class="inline-flex shrink-0 items-center gap-2 text-lg font-extrabold tracking-tight text-ink transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
+                      Apply
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
         </div>
-    </section>
+      ) : (
+        <div class="rounded-3xl border border-dashed border-zinc-300 bg-zinc-50/60 px-8 py-16 text-center">
+          <h2 class="mb-3 text-2xl font-extrabold tracking-tight text-ink md:text-3xl">No open roles right now.</h2>
+          <p class="mx-auto max-w-md font-medium leading-relaxed text-zinc-500">
+            We are not hiring at the moment. When that changes, the roles will appear on this
+            page before anywhere else.
+          </p>
+        </div>
+      )}
+
+      <div class="mt-20">
+        <h2 class="mb-8 text-3xl font-extrabold tracking-tight md:text-4xl">What you would be joining</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {joining.map((j) => (
+            <div class="card-enterprise p-8 md:p-10">
+              <h3 class="mb-3 text-xl font-extrabold tracking-tight">{j.t}</h3>
+              <p class="text-sm font-medium leading-relaxed text-zinc-500">{j.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-16 grid gap-6 rounded-3xl bg-ink p-8 text-white md:grid-cols-3 md:gap-10 md:p-10">
+        <h2 class="text-xl font-extrabold tracking-tight md:text-2xl">If you can't wait</h2>
+        <div class="md:col-span-2">
+          <p class="font-medium leading-relaxed text-zinc-300">
+            Write to <a href="mailto:admin@getazap.com" class="font-bold text-white underline underline-offset-4">admin@getazap.com</a>
+            and tell us what you would do here and why. Keep it short. We read everything, but
+            we are a small team running a live service, so a reply may take a while and there
+            may not be a role at the end of it.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </Layout>
+
+<script>
+  /* Progressive enhancement: without JavaScript every role is already in the
+     HTML and visible, and the filters simply do nothing. */
+  const pills = document.querySelectorAll('.filter-pill');
+  const groups = document.querySelectorAll('.role-group');
+
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const wanted = (pill as HTMLElement).dataset.filter;
+
+      pills.forEach((p) => {
+        const on = p === pill;
+        p.setAttribute('aria-pressed', String(on));
+        p.classList.toggle('bg-ink', on);
+        p.classList.toggle('text-white', on);
+        p.classList.toggle('border-transparent', on);
+        p.classList.toggle('bg-white', !on);
+        p.classList.toggle('text-zinc-600', !on);
+        p.classList.toggle('border-zinc-200', !on);
+      });
+
+      groups.forEach((g) => {
+        const el = g as HTMLElement;
+        el.hidden = wanted !== 'all' && el.dataset.dept !== wanted;
+      });
+    });
+  });
+</script>

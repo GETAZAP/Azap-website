@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+/*
+ * Without this file a bad URL falls through to the host's default 404, which is
+ * unbranded, has no navigation, and gives a visitor no way back. Anyone landing
+ * here is already slightly lost, so the page's job is one clear route onward.
+ *
+ * Layout follows the reference template: the numeral carries the page, the
+ * heading names the problem, one short line explains it, two buttons leave, and
+ * everything else is whitespace. The template's square buttons are deliberately
+ * not copied — every button on this site is a capsule, and a 404 is a poor place
+ * to introduce a second button shape.
+ *
+ * The numeral is split per character so each can carry its own --flip-delay.
+ * Done in the frontmatter rather than in a client component: this is three
+ * characters of decoration and does not justify shipping JavaScript for it, and
+ * the text is in the HTML either way.
+ */
+
+const DIGITS = [...'404'];
+---
+
+<Layout
+  title="Page not found"
+  description="That page does not exist. Book a vetted pro in Enugu, or head back to the homepage."
+  noindex
+>
+  <section class="flex min-h-[78vh] items-center px-6 pt-36 pb-28">
+    <div class="mx-auto max-w-lg text-center">
+
+      {/* aria-hidden with an sr-only twin beneath: split into three separate
+          spans, "404" gets announced character by character, and the <h1> below
+          already states what happened. */}
+      <div
+        class="rise flip mb-3 select-none text-[7rem] font-extrabold leading-none tracking-tighter text-ink sm:text-[9rem] md:text-[11rem]"
+        aria-hidden="true"
+      >
+        {DIGITS.map((d, i) => (
+          <span class="flip-char" style={`--flip-delay: ${(i * 0.12).toFixed(2)}s`}>{d}</span>
+        ))}
+      </div>
+      <span class="sr-only">Error 404.</span>
+
+      <h1 class="rise rise-1 mb-5 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+        Page not found.
+      </h1>
+
+      <p class="rise rise-2 mx-auto mb-10 max-w-sm font-medium leading-relaxed text-zinc-600">
+        The link may be old, or we may have moved something. Nothing is wrong with
+        your booking, this is just a page that isn't here.
+      </p>
+
+      <div class="rise rise-3 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href="/"
+          class="btn-capsule w-full border-transparent bg-ink px-8 py-4 text-base text-white shadow-md hover:bg-zinc-800 sm:w-auto"
+        >
+          Go to homepage
+        </a>
+        <a
+          href="/book"
+          class="btn-capsule w-full border-zinc-200 bg-white px-8 py-4 text-base text-ink hover:border-zinc-300 sm:w-auto"
+        >
+          Book a pro
+        </a>
+      </div>
+
+      <p class="rise rise-4 mt-12 text-sm font-medium text-zinc-600">
+        Looking for something specific?
+        <a href="/contact" class="font-bold text-ink underline underline-offset-4 hover:text-accent-ink">Tell us</a>.
+      </p>
+
+    </div>
+  </section>
+</Layout>

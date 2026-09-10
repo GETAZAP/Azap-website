@@ -1,57 +1,184 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero';
+
+/*
+ * This page's job is to start a conversation, not to sell a product.
+ *
+ * It previously advertised an enterprise offering that does not exist:
+ * "FROM ₦75k/mo" and "FROM ₦30k/mo" price points nobody had set, plus
+ * "consolidated invoicing, dedicated account managers, and SLA guarantees" —
+ * AZAP has no invoicing (customers pay pros directly), no account managers, and
+ * no SLAs. It also used Airbnb, a trademark, as a tier name, and invited people
+ * to "Contact B2B Team", which is not a thing that exists.
+ *
+ * Billing is the honest gap. The consumer model has the customer paying the pro
+ * directly in cash or by transfer, and a property firm needs an invoice. Until
+ * that is built, this page says billing is agreed per account rather than
+ * promising something we cannot produce. See BRIDGE_MODEL.md and
+ * PRICING_MODEL.md Layer 6.
+ */
+
+const audiences = [
+  {
+    t: 'Short-let operators',
+    d: 'The window between one guest leaving and the next arriving, and the broken AC that picks the worst possible morning to fail.',
+  },
+  {
+    t: 'Offices',
+    d: 'Cleaning that happens without being chased, and someone who turns up when the generator or the plumbing gives out.',
+  },
+  {
+    t: 'Estates and property managers',
+    d: 'Trades across several units without keeping and vetting your own list of numbers for every one of them.',
+  },
+];
+
+const offer = [
+  {
+    t: 'One number instead of a list',
+    d: 'You tell us what needs doing. We find the pro, confirm they are coming, and check afterwards that it was done. You are not the one ringing round.',
+  },
+  {
+    t: 'People we have actually checked',
+    d: 'Government ID, a bank account in their own name, a named guarantor and a photograph, before anyone takes a job. On your property, that matters more than it does anywhere else.',
+  },
+  {
+    /* This card previously promised continuity alone, which is an argument for
+       saving the pro's number and cutting us out — a real risk in B2B, where the
+       value is the recurring work rather than any single job. Continuity is only
+       worth advertising alongside the thing a saved number cannot do, which is
+       send somebody else when the regular pro is unavailable. */
+    t: 'The same person, or cover for them',
+    d: 'Once someone knows your building we send them back. And when they are sick, away or on another job, we send someone else we have checked. One saved phone number cannot do the second part, and the second part is the one that matters on a check-in morning.',
+  },
+];
 ---
 
-<Layout title="B2B Solutions" description="Professional household management for short-let operators, corporate offices, and Airbnb hosts in Nigeria.">
-    <PageHero 
-        client:load
-        title="Scale your operations." 
-        subtitle="Professional household management for short-let operators, corporate offices, and Airbnb hosts."
-        image="/images/smart_lock.png"
-    />
-    
-    <section class="py-32 px-6">
-        <div class="container-tight !px-0">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-32">
-                <div>
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-6">Short-let Turnover.</h2>
-                    <p class="text-zinc-500 text-lg leading-relaxed font-medium mb-8">We handle the critical window between guest check-out and check-in. Professional cleaning, linen changes, and supply restocks—guaranteed.</p>
-                    <div class="card-enterprise p-8">
-                        <p class="text-ink font-bold italic">"AZAP has reduced my turnover time by 40%. The quality is consistent, and the PIN code check-in gives me peace of mind."</p>
-                        <div class="mt-4 text-xs font-extrabold uppercase tracking-widest text-zinc-400">— Short-let Operator, Enugu</div>
-                    </div>
-                </div>
-                <div class="rounded-3xl overflow-hidden shadow-lg aspect-square bg-zinc-100 border border-zinc-200/60">
-                    <img src="/images/cleaning_localized.png" class="w-full h-full object-cover" alt="B2B Cleaning" />
-                </div>
-            </div>
+<Layout
+  title="For business"
+  description="Vetted trades for short-let operators, offices and property managers in Enugu. One number to call, and people we have checked ourselves."
+>
+  <PageHero
+    client:load
+    title="You already have a list of numbers."
+    subtitle="It doesn't always answer, and you can't always vouch for who turns up. That's the job we're taking off you."
+  />
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Corporate</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Daily office maintenance, kitchen management, and verified errands for your team.</p>
-                    <p class="text-xs font-extrabold tracking-widest text-accent">FROM ₦75k/mo</p>
-                </div>
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Airbnb</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">On-demand cleaning and guest support for independent hosts.</p>
-                    <p class="text-xs font-extrabold tracking-widest text-accent">FROM ₦30k/mo</p>
-                </div>
-                <div class="card-enterprise p-10">
-                    <h3 class="text-xl font-extrabold mb-3 tracking-tight">Enterprise</h3>
-                    <p class="text-zinc-500 font-medium text-sm leading-relaxed mb-6">Consolidated invoicing, dedicated account managers, and SLA guarantees.</p>
-                    <p class="text-xs font-extrabold tracking-widest text-accent">CUSTOM QUOTE</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="px-6 py-24">
+    <div class="container-tight !px-0">
 
-    <section class="py-32 px-6 section-dark text-center">
-        <div class="container-tight max-w-3xl">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Built for scale.</h2>
-            <p class="text-lg text-zinc-400 font-medium leading-relaxed mb-10">Request a consultation for your property portfolio or office space.</p>
-            <a href="/contact" class="btn-capsule bg-white text-ink border-transparent hover:bg-zinc-100 inline-flex px-8 py-4 text-base shadow-md">Contact B2B Team</a>
+      <!-- Illustrates the headline rather than decorating it: a list of numbers
+           that may or may not answer, against one point of contact that fans out
+           to people already checked. Inline SVG so it scales, needs no asset,
+           and carries the brand colours. -->
+      <div class="mb-20 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="rounded-3xl border border-zinc-200/80 bg-white p-8">
+          <p class="mb-1 text-xs font-bold uppercase tracking-widest text-zinc-400">Your list today</p>
+          <p class="mb-6 text-sm font-medium text-zinc-500">Five numbers, and no way to know which will pick up.</p>
+          <svg viewBox="0 0 320 190" class="h-auto w-full" role="img" aria-label="Five disconnected contacts, each uncertain">
+            <g fill="none" stroke="#d4d4d8" stroke-width="2">
+              <circle cx="52" cy="42" r="24" />
+              <circle cx="160" cy="32" r="24" />
+              <circle cx="266" cy="55" r="24" />
+              <circle cx="92" cy="135" r="24" />
+              <circle cx="215" cy="142" r="24" />
+            </g>
+            <g fill="#a1a1aa" font-family="system-ui, sans-serif" font-size="20" font-weight="700" text-anchor="middle">
+              <text x="52" y="50">?</text>
+              <text x="160" y="40">?</text>
+              <text x="266" y="63">?</text>
+              <text x="92" y="143">?</text>
+              <text x="215" y="150">?</text>
+            </g>
+          </svg>
         </div>
-    </section>
+
+        <div class="rounded-3xl border border-zinc-200/80 bg-white p-8">
+          <p class="mb-1 text-xs font-bold uppercase tracking-widest text-zinc-400">With AZAP</p>
+          <p class="mb-6 text-sm font-medium text-zinc-500">One number, and everyone behind it already checked.</p>
+          <svg viewBox="0 0 320 190" class="h-auto w-full" role="img" aria-label="One point of contact connected to four verified professionals">
+            <g stroke="#d4d4d8" stroke-width="2">
+              <line x1="160" y1="62" x2="46" y2="120" />
+              <line x1="160" y1="62" x2="122" y2="120" />
+              <line x1="160" y1="62" x2="198" y2="120" />
+              <line x1="160" y1="62" x2="274" y2="120" />
+            </g>
+            <circle cx="160" cy="36" r="26" fill="#09090B" />
+            <text x="160" y="41" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1" text-anchor="middle">AZAP</text>
+            <g>
+              <circle cx="46" cy="144" r="24" fill="#ffffff" stroke="#10B981" stroke-width="2" />
+              <circle cx="122" cy="144" r="24" fill="#ffffff" stroke="#10B981" stroke-width="2" />
+              <circle cx="198" cy="144" r="24" fill="#ffffff" stroke="#10B981" stroke-width="2" />
+              <circle cx="274" cy="144" r="24" fill="#ffffff" stroke="#10B981" stroke-width="2" />
+            </g>
+            <g fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M38 144 l6 6 l11 -12" />
+              <path d="M114 144 l6 6 l11 -12" />
+              <path d="M190 144 l6 6 l11 -12" />
+              <path d="M266 144 l6 6 l11 -12" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <h2 class="mb-8 text-3xl font-extrabold tracking-tight md:text-4xl">Who this is for</h2>
+      <div class="mb-20 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {audiences.map((a) => (
+          <div class="card-enterprise p-8 md:p-10">
+            <h3 class="mb-3 text-xl font-extrabold tracking-tight">{a.t}</h3>
+            <p class="text-sm font-medium leading-relaxed text-zinc-500">{a.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 class="mb-8 text-3xl font-extrabold tracking-tight md:text-4xl">What you get</h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {offer.map((o) => (
+          <div class="card-enterprise p-8 md:p-10">
+            <h3 class="mb-3 text-xl font-extrabold tracking-tight">{o.t}</h3>
+            <p class="text-sm font-medium leading-relaxed text-zinc-500">{o.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Being early is stated plainly rather than dressed up. A property
+           manager will work out the size of the operation in one phone call, and
+           finding out then is worse than reading it here. -->
+      <div class="mt-16 grid gap-6 rounded-3xl bg-ink p-8 text-white md:grid-cols-3 md:gap-10 md:p-10">
+        <h2 class="text-xl font-extrabold tracking-tight md:text-2xl">Where we're up to</h2>
+        <div class="md:col-span-2">
+          <p class="font-medium leading-relaxed text-zinc-300">
+            We're taking on our first business accounts in Enugu, which means you get our
+            attention rather than a queue position. It also means we'd rather agree terms and
+            billing with you directly than publish a rate card we'd have to revise once we
+            know what you actually need.
+          </p>
+          <p class="mt-4 font-medium leading-relaxed text-zinc-400">
+            If you want a supplier with a procurement portal and a service-level agreement,
+            we are not that yet, and we'd rather say so now than in month three.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section-dark px-6 py-32 text-center">
+    <div class="container-tight max-w-3xl">
+      <h2 class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl">
+        Tell us what keeps breaking.
+      </h2>
+      <p class="mb-10 text-lg font-medium leading-relaxed text-zinc-400">
+        A short conversation about your properties and what goes wrong in them is enough for
+        us to say honestly whether we can help.
+      </p>
+      <div class="flex justify-center">
+        <a
+          href="/contact"
+          class="btn-capsule w-fit border-transparent bg-white px-8 py-4 text-base text-ink shadow-md hover:bg-zinc-100"
+        >Talk to us</a>
+      </div>
+    </div>
+  </section>
 </Layout>
