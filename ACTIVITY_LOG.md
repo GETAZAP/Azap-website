@@ -7,6 +7,61 @@ database live in the `Azap` repository and are logged there.
 
 ---
 
+## [2026-09-10] — Photography: two AI images replaced with stock
+
+The cofounders want photographs rather than AI images. Only three AI images were
+actually in use, all as `PageHero` art; `about_hero`, `chef_localized` and
+`smart_lock` had been referenced from nowhere for some time and were deleted.
+
+### What changed
+
+| page | was | now |
+|---|---|---|
+| `/verification` | `nfc_localized.jpg` | `verification_hero.jpg` |
+| `/services` | `cleaning_localized.jpg` | `services_hero.jpg` |
+| `/provider` | `provider_hero.jpg` | unchanged |
+
+`/verification` needed replacing regardless of this decision. It showed **an NFC
+card being tapped against a phone** — a capability AZAP does not have, since the
+PIN system lives in the app and the app is not in the stores. A picture of a
+feature that does not exist, on the page whose entire argument is that what we
+say about a pro is checkable.
+
+`/provider` was kept deliberately. It is the only image on the site showing a
+tradesman rather than a cleaner, and it matches the subject and setting of the
+hero video.
+
+Both new files are cropped square in the file at 1024x1024 rather than left to
+`object-cover`: `PageHero` renders `aspect-square`, so shipping the 2:3 source
+would have downloaded height the browser discards and left the crop point to
+chance. 103KB and 118KB, against 193KB for the AI image that remains.
+
+### Raised at the time
+
+- **All four supplied images are cleaning.** The site covers eleven trades, so
+  making every photograph on it a cleaning photograph says "cleaning company" —
+  the same narrowing already corrected three times in the copy. Two were used,
+  both on pages where cleaning is a reasonable illustration.
+- **They lose Enugu.** The AI images were deliberately localised — burglar bars,
+  banana plants, a Nigerian street. These are cool grey interiors, on a site
+  whose position is one city, properly.
+- **One image was not used at all**: the subject is pouting at the camera, which
+  is the wrong expression for a brand promising someone you are glad to let in.
+- **Licence**: Pexels permits commercial use but not implying the people
+  depicted endorse or work for AZAP. Both are decorative page art with `alt=""`
+  and no caption, which stays the right side of that.
+- **The two new images are the same woman, same outfit, same room.** `/services`
+  and `/verification` now read as two frames of one shoot. Tolerable, and an
+  argument for asking the cofounders for photographs covering the other trades.
+
+### Verified
+
+All three hero images load at 1024x1024 into a 542x542 box, `alt=""`, lazy. Every
+`/images/` reference in the source resolves to a file, and no file in
+`public/images` is unreferenced. Total image payload 924KB.
+
+---
+
 ## [2026-09-10] — Mobile: the video plays, and the pages got shorter
 
 ### The hero video on phones
