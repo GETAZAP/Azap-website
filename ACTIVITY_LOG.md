@@ -27,9 +27,18 @@ PIN system lives in the app and the app is not in the stores. A picture of a
 feature that does not exist, on the page whose entire argument is that what we
 say about a pro is checkable.
 
-`/provider` was kept deliberately. It is the only image on the site showing a
-tradesman rather than a cleaner, and it matches the subject and setting of the
-hero video.
+`/provider` was kept at first, as the only image on the site showing a tradesman
+rather than a cleaner, then replaced on the founders' call with the fourth
+supplied photograph — the laughing subject in red overalls. It reads well above
+"Keep everything you charge", which is a page addressed to artisans, and it
+breaks the repetition of one model across `/services` and `/verification`.
+
+The crop is anchored 25% down rather than centred. The raised arm is the energy
+of that frame and a centre square crop takes the hand off the top edge.
+
+The consequence, stated when it was proposed: **every photograph on the site is
+now of someone cleaning**, on a site that covers eleven trades. The hero video
+is the only remaining image of other work.
 
 Both new files are cropped square in the file at 1024x1024 rather than left to
 `object-cover`: `PageHero` renders `aspect-square`, so shipping the 2:3 source
