@@ -10,9 +10,9 @@ import PageHero from '../components/PageHero';
         subtitle="Booking, pricing, vetting, and what happens if something goes wrong."
     />
     
-    <section class="py-24 px-6">
+    <section class="py-16 md:py-24 px-6">
         <div class="container-tight max-w-3xl !px-0">
-            <div class="space-y-8">
+            <div class="space-y-3">
                 {[
                   {
                     q: "How much does it cost to book?",
@@ -50,11 +50,25 @@ import PageHero from '../components/PageHero';
                     q: "Do I need the app?",
                     a: "No. Everything happens through this website and a phone call. The AZAP app is coming, and when it does you will be able to track your pro on a map and confirm arrival with a PIN, but nothing about booking today depends on it."
                   }
-                ].map(faq => (
-                    <div class="card-enterprise p-10 group">
-                        <h2 class="text-xl font-extrabold mb-3 tracking-tight text-ink group-hover:text-accent-ink transition-colors">{faq.q}</h2>
-                        <p class="text-zinc-500 font-medium text-base leading-relaxed">{faq.a}</p>
-                    </div>
+                ].map((faq, i) => (
+                    /* An accordion, not fifteen open cards.
+                       Expanded, this page ran to 6.6 screens on a phone, and
+                       nobody reads every answer — they arrive with one question.
+                       The first is open so the pattern is obvious without a tap.
+
+                       <details> rather than JavaScript: it works with none, is
+                       keyboard operable, and announces its own state. Every
+                       answer stays in the HTML, so search engines and in-page
+                       find still see all of it. */
+                    <details open={i === 0} class="faq-item card-enterprise px-6 py-1 md:px-10">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left md:py-6">
+                            <h2 class="text-lg font-extrabold tracking-tight text-ink md:text-xl">{faq.q}</h2>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="faq-chevron h-5 w-5 shrink-0 text-zinc-400 transition-transform" aria-hidden="true">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </summary>
+                        <p class="pb-6 pr-9 text-base font-medium leading-relaxed text-zinc-600">{faq.a}</p>
+                    </details>
                 ))}
             </div>
         </div>

@@ -7,6 +7,100 @@ database live in the `Azap` repository and are logged there.
 
 ---
 
+## [2026-09-10] — Mobile: the video plays, and the pages got shorter
+
+### The hero video on phones
+
+It was withheld below 768px on purpose, on the grounds that 1.4MB of decoration
+is expensive on Nigerian mobile data. That reasoning held against the desktop
+file and not against a smaller one, so the floor now chooses *which* file rather
+than whether to play one at all.
+
+It was also the wrong shape. The source is 1920x1080, and `object-cover` on a
+375x812 hero scales it by 0.752 and crops — a phone was only ever going to see
+**26% of the frame width**, a vertical slice through the middle of a landscape
+shot. The mobile pair is a 9:16 centre crop at 540x960, framed for the shape it
+is displayed in, and a third of the weight:
+
+| | desktop | mobile |
+|---|---|---|
+| mp4 | 1385KB | 461KB |
+| webm | 1007KB | 415KB |
+| poster | 83KB | 27KB |
+
+All four shots in the montage were checked against the crop before encoding.
+Save-Data, 2G and reduced-motion still get no video at all. The still is chosen
+by `<picture>` rather than JavaScript, so whoever never gets the video still sees
+a frame shot for their screen, before React runs.
+
+### Why the pages felt long
+
+Measured all fifteen pages at 375x812 and simulated each fix before writing any
+of it. **The obvious fix was the wrong one.** Forcing cards two-up on mobile made
+pages *longer* — the homepage by 24%, `/business` by 7% — because at 375px
+halving the width wraps paragraphs into more lines than the pairing saves. It
+only helps where a card is a short label. Tightening padding everywhere bought
+5-10%, real but imperceptible.
+
+The actual cost was **the footer: 1400px, 1.7 full screens, on every page**, and
+on `/contact` taller than the page's own content. Twelve links at the 44px touch
+minimum is 528px before headings, gaps or padding, so it was not spacing that
+could be trimmed.
+
+### What was done
+
+- Footer link groups collapse on phones and are untouched from md: upwards.
+  1400px to 975px.
+- A mobile-first vertical rhythm across 34 padding declarations. Every one had
+  been a desktop value applied unconditionally; the `md:` value is what was
+  there before, so desktop is unchanged.
+- Two-up **only** on `/services`, where the cards are a label and three words.
+- `/faq` became an accordion, first answer open.
+
+| page | before | after | |
+|---|---|---|---|
+| `/faq` | 6.6 screens | 3.1 | **-52%** |
+| `/contact` | 3.4 | 2.8 | -18% |
+| `/services` | 6.3 | 5.3 | -16% |
+| `/verification` | 5.0 | 4.2 | -16% |
+| `/about` | 5.2 | 4.4 | -15% |
+| `/` | 6.1 | 5.6 | -9% |
+
+Average across the site: **17% shorter on a phone.**
+
+### A bug caught before it shipped
+
+The first footer attempt used `<details>` closed by default, forced open on
+desktop with `display: block !important`. **It rendered the desktop footer as
+three headings and no links at all.** Chrome's UA stylesheet hides a closed
+`<details>`'s content with `!important`, and in the cascade a UA `!important`
+beats an author one, so CSS cannot force one open.
+
+The markup now ships `<details open>` and JavaScript closes them below 768px.
+The failure mode of that direction is "the footer is long", not "the footer has
+no links" — all twelve hrefs are in the static HTML either way. Same reasoning
+applies to the FAQ accordion and is commented in both places.
+
+Worth noting how close this came to shipping: the DOM probe said the links were
+present with real bounding boxes at 1280px, because `getBoundingClientRect()`
+reports a would-be size for content hidden inside a closed `<details>`. Only a
+screenshot showed the footer was empty.
+
+### Verified
+
+At 375px across all sixteen pages: no contrast failures, no horizontal overflow,
+no heading jumps, no missing alt text, no tap target under 44px. Confirmed in a
+real 1400px window driving two iframes, since the Browser pane reports
+`innerWidth: 0` while hidden and therefore fails every width test:
+
+| | desktop 1280 | mobile 390 |
+|---|---|---|
+| footer groups | 3/3 open | 0/3 collapsed |
+| video | `hero.webm` | `hero-mobile.webm` |
+| still | `hero-poster.jpg` | `hero-poster-mobile.jpg` |
+
+---
+
 ## [2026-09-10] — Shipped to production
 
 The website branch was merged to `master` and Vercel deployed it. This is the

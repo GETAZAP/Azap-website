@@ -49,7 +49,7 @@ const household = [
     image="/images/cleaning_localized.jpg"
   />
 
-  <section class="px-6 py-24">
+  <section class="px-6 py-16 md:py-24">
     <div class="container-tight !px-0">
 
       <div class="mb-16">
@@ -58,7 +58,7 @@ const household = [
           Nobody can price a repair honestly before seeing it, so your pro looks at the job
           and quotes you directly. We never set or take a cut of that price.
         </p>
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
           {repairs.map((s) => (
             <a href="/book" class="rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all hover:border-accent hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
               <span class="block font-bold tracking-tight text-ink">{s.t}</span>
@@ -74,7 +74,7 @@ const household = [
           One-off or regular. Tell us roughly what you need on the call and we'll match you
           with someone who does that kind of work.
         </p>
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
           {household.map((s) => (
             <a href="/book" class="rounded-2xl border border-zinc-200 bg-white px-5 py-4 transition-all hover:border-accent hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30">
               <span class="block font-bold tracking-tight text-ink">{s.t}</span>
@@ -96,7 +96,7 @@ const household = [
     </div>
   </section>
 
-  <section class="section-dark px-6 py-32 text-center">
+  <section class="section-dark px-6 py-20 md:py-32 text-center">
     <div class="container-tight max-w-3xl">
       <h2 class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl">
         Need one of these today?

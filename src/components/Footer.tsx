@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * The out-of-area email capture lives here rather than on the homepage.
@@ -41,12 +41,70 @@ const SOCIALS = [
   },
 ];
 
+
+/* The three link lists, so one block of markup renders them and mobile can
+   collapse them without triplicating the accordion. */
+const LINK_GROUPS: { heading: string; links: { href: string; label: string }[] }[] = [
+  {
+    heading: 'Company',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/provider', label: 'For professionals' },
+      { href: '/business', label: 'Business' },
+      { href: '/careers', label: 'Careers' },
+    ],
+  },
+  {
+    heading: 'Product',
+    links: [
+      { href: '/book', label: 'Book a pro' },
+      { href: '/services', label: 'Services' },
+      { href: '/verification', label: 'How we vet pros' },
+      { href: '/pricing', label: 'Pricing' },
+      { href: '/cities', label: 'Locations' },
+      { href: '/faq', label: 'FAQ' },
+    ],
+  },
+  {
+    heading: 'Legal',
+    links: [
+      { href: '/terms', label: 'Terms' },
+      { href: '/privacy', label: 'Privacy' },
+    ],
+  },
+];
+
 const ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string | undefined;
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [trap, setTrap] = useState(false);
+
+  /*
+   * Collapse the link groups on phones, after render rather than instead of it.
+   *
+   * The markup ships <details open>, so every link is in the HTML and visible
+   * to a search engine, to a reader with no JavaScript, and on desktop. This
+   * only closes them below 768px, where the footer was otherwise 1.7 screens
+   * tall on every page.
+   *
+   * Deliberately not done in CSS: Chrome's UA stylesheet hides a closed
+   * <details>'s content with !important, so an author rule cannot force one
+   * open. Trying produced a desktop footer of three headings and no links.
+   */
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const apply = () => {
+      document.querySelectorAll<HTMLDetailsElement>('footer .footer-group').forEach((d) => {
+        if (mq.matches) d.removeAttribute('open');
+        else d.setAttribute('open', '');
+      });
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,10 +155,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="py-24 bg-zinc-50 border-t border-zinc-200/70 px-6 font-sans">
+    <footer className="py-16 md:py-24 bg-zinc-50 border-t border-zinc-200/70 px-6 font-sans">
       <div className="container-tight !px-0">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-5 md:gap-12 mb-10 md:mb-16">
+          <div className="md:col-span-2 mb-2 md:mb-0">
             <div className="flex items-center gap-2 mb-6">
               {/* alt="" — the wordmark beside it already says AZAP, and a
                   screen reader announcing "AZAP AZAP" is noise, not information. */}
@@ -132,35 +190,39 @@ export default function Footer() {
             </div>
           </div>
 
-          <div>
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-ink mb-6">Company</h2>
-            <ul className="text-sm font-bold text-zinc-500 md:space-y-3">
-              <li><a href="/about" className={FOOTER_LINK}>About</a></li>
-              <li><a href="/provider" className={FOOTER_LINK}>For professionals</a></li>
-              <li><a href="/business" className={FOOTER_LINK}>Business</a></li>
-              <li><a href="/careers" className={FOOTER_LINK}>Careers</a></li>
-            </ul>
-          </div>
+          {/* Collapsed on phones, open on desktop.
 
-          <div>
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-ink mb-6">Product</h2>
-            <ul className="text-sm font-bold text-zinc-500 md:space-y-3">
-              <li><a href="/book" className={FOOTER_LINK}>Book a pro</a></li>
-              <li><a href="/services" className={FOOTER_LINK}>Services</a></li>
-              <li><a href="/verification" className={FOOTER_LINK}>How we vet pros</a></li>
-              <li><a href="/pricing" className={FOOTER_LINK}>Pricing</a></li>
-              <li><a href="/cities" className={FOOTER_LINK}>Locations</a></li>
-              <li><a href="/faq" className={FOOTER_LINK}>FAQ</a></li>
-            </ul>
-          </div>
+              Measured cause: the footer was 1400px tall at 375px, 1.7 full
+              screens, on every page of the site — and on /contact it was taller
+              than the page's own content. Twelve links at the 44px touch
+              minimum is 528px before headings, gaps or padding, so the height
+              was not decoration that could be trimmed.
 
-          <div>
-            <h2 className="text-xs font-extrabold uppercase tracking-widest text-ink mb-6">Legal</h2>
-            <ul className="text-sm font-bold text-zinc-500 md:space-y-3">
-              <li><a href="/terms" className={FOOTER_LINK}>Terms</a></li>
-              <li><a href="/privacy" className={FOOTER_LINK}>Privacy</a></li>
-            </ul>
-          </div>
+              <details> rather than a JS accordion: it collapses with no
+              JavaScript at all, is keyboard operable and announces its state to
+              a screen reader for free. `open` is forced from md: upwards in
+              global.css, so desktop never sees a disclosure at all and nothing
+              is hidden from anyone on a large screen. */}
+          {LINK_GROUPS.map((g) => (
+            <details key={g.heading} open className="footer-group border-b border-zinc-200/70 md:border-0">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-xs font-extrabold uppercase tracking-widest text-ink md:mb-6 md:min-h-0 md:cursor-default">
+                {g.heading}
+                <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round"
+                  className="footer-chevron h-4 w-4 text-zinc-400 transition-transform md:hidden"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <ul className="pb-2 text-sm font-bold text-zinc-500 md:pb-0 md:space-y-3">
+                {g.links.map((l) => (
+                  <li key={l.href}><a href={l.href} className={FOOTER_LINK}>{l.label}</a></li>
+                ))}
+              </ul>
+            </details>
+          ))}
         </div>
 
         {/* Out-of-area capture */}

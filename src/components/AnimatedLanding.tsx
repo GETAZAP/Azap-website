@@ -8,8 +8,29 @@ import React, { useEffect, useState } from 'react';
    Spec for whoever shoots it: 6-12 seconds, silent, seamless loop, 1920x1080,
    and compressed hard. Keep the MP4 under about 2MB. It is decorative, so
    nothing important should happen in it. */
-const HERO_VIDEO_WEBM = '/video/hero.webm';
-const HERO_VIDEO_MP4 = '/video/hero.mp4';
+/*
+ * Two encodes, because the hero is a different shape on each.
+ *
+ * The source is 1920x1080. `object-cover` on a 375x812 phone scales it by
+ * 0.752 and then crops, so a phone was only ever going to see 26% of the frame
+ * width — a narrow vertical slice through the middle of a landscape shot. The
+ * mobile pair is a 9:16 centre crop at 540x960, framed for the shape it is
+ * actually displayed in, and it is a third of the weight: 461KB against 1.4MB.
+ */
+const HERO = {
+  desktop: {
+    webm: '/video/hero.webm',
+    mp4: '/video/hero.mp4',
+    poster: '/images/hero-poster.jpg',
+  },
+  mobile: {
+    webm: '/video/hero-mobile.webm',
+    mp4: '/video/hero-mobile.mp4',
+    poster: '/images/hero-poster-mobile.jpg',
+  },
+} as const;
+
+type HeroSource = (typeof HERO)[keyof typeof HERO];
 
 
 
@@ -22,26 +43,31 @@ export default function AnimatedLanding() {
 
      The HEAD request means a missing file simply never turns the video on,
      rather than leaving a broken <video> over the hero. */
-  const [videoOn, setVideoOn] = useState(false);
+  const [source, setSource] = useState<HeroSource | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const wideEnough = window.matchMedia('(min-width: 768px)').matches;
+
+    // The 768px floor used to sit here and withheld the video from every phone,
+    // on the grounds that 1.4MB of decoration is expensive on Nigerian mobile
+    // data. That reasoning held against the desktop file; it does not against a
+    // 461KB portrait encode, so phones now get the video too and the floor
+    // chooses which file rather than whether to play one.
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const conn = (navigator as any).connection;
     const cheapData = conn?.saveData === true;
     // Only genuinely slow links are excluded. '3g' was in this list and is not:
     // effectiveType is a latency-and-throughput estimate rather than a radio
     // technology, and plenty of perfectly good fixed connections report 3g.
-    // Combined with the 768px floor above, anyone reaching this line is on a
-    // larger screen, and 1.4MB fetched lazily behind a poster is affordable.
     const slowLink = conn && ['slow-2g', '2g'].includes(conn.effectiveType);
 
-    if (!wideEnough || reducedMotion || cheapData || slowLink) return;
+    if (reducedMotion || cheapData || slowLink) return;
+
+    const pick = window.matchMedia('(min-width: 768px)').matches ? HERO.desktop : HERO.mobile;
 
     let cancelled = false;
-    fetch(HERO_VIDEO_MP4, { method: 'HEAD' })
-      .then((r) => { if (r.ok && !cancelled) setVideoOn(true); })
+    fetch(pick.mp4, { method: 'HEAD' })
+      .then((r) => { if (r.ok && !cancelled) setSource(pick); })
       .catch(() => { /* no video published yet: the still is the design */ });
     return () => { cancelled = true; };
   }, []);
@@ -69,26 +95,35 @@ export default function AnimatedLanding() {
             2G and reduced-motion visitors never load the video at all — see the
             gate above — and would otherwise get a flat dark box. */}
         <div className="absolute inset-0 -z-10 bg-ink">
-          <img
-            src="/images/hero-poster.jpg"
-            alt=""
-            aria-hidden="true"
-            fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover object-[50%_35%]"
-          />
-          {videoOn && (
+          {/* <picture> rather than JS so the correct still is chosen by the
+              browser before React runs. Whoever never gets the video — reduced
+              motion, Save-Data, 2G — still sees a frame shot for their screen. */}
+          <picture>
+            <source media="(max-width: 767px)" srcSet={HERO.mobile.poster} />
+            <img
+              src={HERO.desktop.poster}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover object-[50%_35%]"
+            />
+          </picture>
+          {source && (
             <video
+              // key forces a remount if the chosen source ever changes, so the
+              // element reloads instead of keeping the previous file.
+              key={source.mp4}
               autoPlay
               muted
               loop
               playsInline
               preload="none"
-              poster="/images/hero-poster.jpg"
-              onError={() => setVideoOn(false)}
+              poster={source.poster}
+              onError={() => setSource(null)}
               className="absolute inset-0 h-full w-full object-cover object-[50%_35%]"
             >
-              <source src={HERO_VIDEO_WEBM} type="video/webm" />
-              <source src={HERO_VIDEO_MP4} type="video/mp4" />
+              <source src={source.webm} type="video/webm" />
+              <source src={source.mp4} type="video/mp4" />
             </video>
           )}
 
@@ -99,7 +134,7 @@ export default function AnimatedLanding() {
           <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/25 to-ink/85" />
         </div>
 
-        <div className="container-tight w-full pt-28 pb-24 text-center">
+        <div className="container-tight w-full pt-28 pb-16 md:pb-24 text-center">
           <div className="mx-auto max-w-4xl">
 
             {/* "Your Space, Managed." said nothing a person could act on, and
@@ -149,7 +184,7 @@ export default function AnimatedLanding() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-20 md:py-32 bg-white">
         <div className="container-tight max-w-5xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-16 leading-tight">Get verified help in 3 simple steps.</h2>
 
@@ -185,7 +220,7 @@ export default function AnimatedLanding() {
       </section>
 
       {/* 5. THE PROMISE / QUALITY ASSURANCE (Dark Contrast Block) */}
-      <section className="py-24 md:py-32 section-dark relative overflow-hidden">
+      <section className="py-24 md:py-20 md:py-32 section-dark relative overflow-hidden">
         <div className="container-tight relative z-10">
           <div className="grid grid-cols-1 max-w-4xl mx-auto gap-16 items-center text-center">
             <div>
@@ -228,7 +263,7 @@ export default function AnimatedLanding() {
           capture that used to sit under it now lives in the site footer,
           where it is on every page and competes with nothing. The
           #waitlist id is kept so older external links still land here. */}
-      <section id="waitlist" className="py-32 md:py-48 bg-white">
+      <section id="waitlist" className="py-32 md:py-24 md:py-48 bg-white">
         <div className="container-tight text-center max-w-3xl">
           {/* The last thing read before the decision, so it answers the last
               question left: what actually happens after the button. The

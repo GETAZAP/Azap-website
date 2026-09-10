@@ -135,3 +135,42 @@
     .flip-char { animation: none; }
   }
 }
+
+/* Footer link groups.
+   <details> is collapsible on phones and permanently open from md: upwards, so
+   a desktop visitor never meets a disclosure and nothing is hidden from them.
+   The marker is removed in both places because summary renders its own arrow
+   and we draw a chevron. */
+@layer components {
+  .footer-group > summary::-webkit-details-marker { display: none; }
+  .footer-group > summary::marker { content: ''; }
+
+  .footer-group[open] > summary .footer-chevron {
+    transform: rotate(180deg);
+  }
+
+  @media (min-width: 768px) {
+    /* Desktop cannot collapse these. The `open` attribute is what actually
+       keeps them open — see Footer.tsx — because CSS cannot: Chrome's UA
+       stylesheet hides a closed <details>'s content with !important, and a UA
+       !important beats an author one. An earlier attempt to force it with
+       `display: block !important` rendered the desktop footer as three headings
+       and no links at all. */
+    .footer-group > summary { pointer-events: none; }
+    .footer-group > summary .footer-chevron { display: none; }
+  }
+}
+
+/* FAQ accordion. Same reasoning as .footer-group: the open state is carried by
+   the `open` attribute, never by CSS, because a UA !important rule hides a
+   closed <details>'s content and an author rule cannot beat it. */
+@layer components {
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary::marker { content: ''; }
+  .faq-item[open] > summary .faq-chevron { transform: rotate(180deg); }
+  .faq-item > summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
+}

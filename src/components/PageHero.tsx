@@ -17,7 +17,7 @@ interface PageHeroProps {
  */
 export default function PageHero({ title, subtitle, image }: PageHeroProps) {
   return (
-    <section className="pt-40 pb-20 px-6 overflow-hidden bg-background relative">
+    <section className="pt-28 md:pt-40 pb-20 px-6 overflow-hidden bg-background relative">
       <div className={`container-tight !px-0 ${image ? 'grid grid-cols-1 lg:grid-cols-2 gap-16 items-center' : 'flex flex-col items-center text-center'}`}>
         <div className={`rise ${!image ? 'flex flex-col items-center' : ''}`}>
           <h1 className={`text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 text-ink ${!image ? 'max-w-3xl' : ''}`}>{title}</h1>
